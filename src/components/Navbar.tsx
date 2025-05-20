@@ -1,35 +1,36 @@
-import { Box, Flex, Button, useColorModeValue } from '@chakra-ui/react'
 import { Link as ScrollLink } from 'react-scroll'
 
 const Navbar = () => {
   return (
-    <Box
-      position="fixed"
-      w="100%"
-      bg={useColorModeValue('white', 'gray.800')}
-      px={4}
-      py={4}
-      boxShadow="sm"
-      zIndex={1000}
-    >
-      <Flex maxW="1200px" mx="auto" justify="space-between" align="center">
-        <Box fontWeight="bold" fontSize="xl">Your Name</Box>
-        <Flex gap={4}>
-          <ScrollLink to="about" smooth={true} duration={500}>
-            <Button variant="ghost">About</Button>
-          </ScrollLink>
-          <ScrollLink to="skills" smooth={true} duration={500}>
-            <Button variant="ghost">Skills</Button>
-          </ScrollLink>
-          <ScrollLink to="projects" smooth={true} duration={500}>
-            <Button variant="ghost">Projects</Button>
-          </ScrollLink>
-          <ScrollLink to="contact" smooth={true} duration={500}>
-            <Button variant="ghost">Contact</Button>
-          </ScrollLink>
-        </Flex>
-      </Flex>
-    </Box>
+    <nav className="fixed w-full bg-white shadow-sm z-50">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          <div className="text-xl font-bold">Your Name</div>
+          <div className="flex gap-4">
+            <ScrollLink to="about" smooth={true} duration={500}>
+              <button className="px-4 py-2 text-gray-600 hover:text-primary-600 transition-colors">
+                About
+              </button>
+            </ScrollLink>
+            <ScrollLink to="skills" smooth={true} duration={500}>
+              <button className="px-4 py-2 text-gray-600 hover:text-primary-600 transition-colors">
+                Skills
+              </button>
+            </ScrollLink>
+            <ScrollLink to="projects" smooth={true} duration={500}>
+              <button className="px-4 py-2 text-gray-600 hover:text-primary-600 transition-colors">
+                Projects
+              </button>
+            </ScrollLink>
+            <ScrollLink to="contact" smooth={true} duration={500}>
+              <button className="px-4 py-2 text-gray-600 hover:text-primary-600 transition-colors">
+                Contact
+              </button>
+            </ScrollLink>
+          </div>
+        </div>
+      </div>
+    </nav>
   )
 }
 
