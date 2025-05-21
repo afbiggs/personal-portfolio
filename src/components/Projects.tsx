@@ -1,4 +1,3 @@
-import { Box, Container, Heading, SimpleGrid, VStack, Text, Image, Button, HStack, Tag } from '@chakra-ui/react'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 
 const ProjectCard = ({ title, description, image, tags, github, live }: {
@@ -9,47 +8,43 @@ const ProjectCard = ({ title, description, image, tags, github, live }: {
   github: string;
   live: string;
 }) => (
-  <VStack
-    bg="white"
-    rounded="lg"
-    overflow="hidden"
-    boxShadow="md"
-    align="start"
-    _hover={{ transform: 'translateY(-5px)', transition: 'all 0.3s ease' }}
-  >
-    <Image src={image} alt={title} w="full" h="200px" objectFit="cover" />
-    <VStack p={6} spacing={4} align="start" w="full">
-      <Heading as="h3" size="md">{title}</Heading>
-      <Text color="gray.600">{description}</Text>
-      <HStack spacing={2} wrap="wrap">
+  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:-translate-y-1 transition-transform duration-300">
+    <img src={image} alt={title} className="w-full h-48 object-cover" />
+    <div className="p-6 space-y-4">
+      <h3 className="text-xl font-bold">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+      <div className="flex flex-wrap gap-2">
         {tags.map((tag, index) => (
-          <Tag key={index} colorScheme="blue" size="sm">{tag}</Tag>
+          <span
+            key={index}
+            className="px-3 py-1 text-sm bg-primary-100 text-primary-600 rounded-full"
+          >
+            {tag}
+          </span>
         ))}
-      </HStack>
-      <HStack spacing={4} pt={2}>
-        <Button
-          as="a"
+      </div>
+      <div className="flex space-x-4 pt-2">
+        <a
           href={github}
           target="_blank"
-          leftIcon={<FaGithub />}
-          size="sm"
-          variant="outline"
+          rel="noopener noreferrer"
+          className="btn btn-outline flex items-center space-x-2"
         >
-          Code
-        </Button>
-        <Button
-          as="a"
+          <FaGithub />
+          <span>Code</span>
+        </a>
+        <a
           href={live}
           target="_blank"
-          leftIcon={<FaExternalLinkAlt />}
-          size="sm"
-          variant="outline"
+          rel="noopener noreferrer"
+          className="btn btn-outline flex items-center space-x-2"
         >
-          Live Demo
-        </Button>
-      </HStack>
-    </VStack>
-  </VStack>
+          <FaExternalLinkAlt />
+          <span>Live Demo</span>
+        </a>
+      </div>
+    </div>
+  </div>
 )
 
 const Projects = () => {
@@ -81,25 +76,18 @@ const Projects = () => {
   ]
 
   return (
-    <Box
-      as="section"
-      id="projects"
-      py={20}
-      bg="white"
-    >
-      <Container maxW="1200px">
-        <VStack spacing={12}>
-          <Heading as="h2" size="xl" textAlign="center">
-            Featured Projects
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} w="full">
+    <section id="projects" className="py-20 bg-white">
+      <div className="container mx-auto">
+        <div className="flex flex-col items-center space-y-12">
+          <h2 className="text-3xl font-bold text-center">Featured Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
-          </SimpleGrid>
-        </VStack>
-      </Container>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

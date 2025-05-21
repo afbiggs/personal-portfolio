@@ -1,81 +1,62 @@
-import { Box, Container, Heading, Text, Button, VStack, HStack } from '@chakra-ui/react'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 const Hero = () => {
   return (
-    <Box
-      as="section"
-      id="hero"
-      minH="100vh"
-      display="flex"
-      alignItems="center"
-      bg="gray.50"
-      pt={20}
-    >
-      <Container maxW="1200px">
-        <VStack spacing={6} align="start">
-          <Heading
-            as="h1"
-            size="2xl"
-            bgGradient="linear(to-r, blue.400, purple.500)"
-            bgClip="text"
-            fontWeight="extrabold"
-          >
+    <section id="hero" className="min-h-screen flex items-center bg-gray-50 pt-20">
+      <div className="container mx-auto">
+        <div className="flex flex-col space-y-6 items-start">
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
             Hi, I'm Your Name
-          </Heading>
-          <Text fontSize="xl" color="gray.600">
+          </h1>
+          <p className="text-xl text-gray-600">
             A passionate Full Stack Developer crafting beautiful and functional web experiences
-          </Text>
-          <HStack spacing={4}>
-            <Button
-              as="a"
+          </p>
+          <div className="flex space-x-4">
+            <a
               href="#contact"
-              colorScheme="blue"
-              size="lg"
+              className="btn btn-primary"
             >
               Get in Touch
-            </Button>
-            <Button
-              as="a"
+            </a>
+            <a
               href="#projects"
-              variant="outline"
-              size="lg"
+              className="btn btn-outline"
             >
               View My Work
-            </Button>
-          </HStack>
-          <HStack spacing={4} pt={4}>
-            <Button
-              as="a"
+            </a>
+          </div>
+          <div className="flex space-x-4 pt-4">
+            <a
               href="https://github.com/yourusername"
               target="_blank"
-              leftIcon={<FaGithub />}
-              variant="ghost"
+              rel="noopener noreferrer"
+              className="btn btn-outline flex items-center space-x-2"
             >
-              GitHub
-            </Button>
-            <Button
-              as="a"
+              <FaGithub />
+              <span>GitHub</span>
+            </a>
+            <a
               href="https://linkedin.com/in/yourusername"
               target="_blank"
-              leftIcon={<FaLinkedin />}
-              variant="ghost"
+              rel="noopener noreferrer"
+              className="btn btn-outline flex items-center space-x-2"
             >
-              LinkedIn
-            </Button>
-            <Button
-              as="a"
+              <FaLinkedin />
+              <span>LinkedIn</span>
+            </a>
+            <a
               href="https://twitter.com/yourusername"
               target="_blank"
-              leftIcon={<FaTwitter />}
-              variant="ghost"
+              rel="noopener noreferrer"
+              className="btn btn-outline flex items-center space-x-2"
             >
-              Twitter
-            </Button>
-          </HStack>
-        </VStack>
-      </Container>
-    </Box>
+              <FaTwitter />
+              <span>Twitter</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

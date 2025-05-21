@@ -1,21 +1,12 @@
-import { Box, Container, Heading, SimpleGrid, VStack, Text, Icon } from '@chakra-ui/react'
-import { FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDocker } from 'react-icons/fa'
-import { SiTypescript, SiJavascript, SiPython, SiMongodb, SiPostgresql } from 'react-icons/si'
+import { FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa'
+import { SiTypescript, SiJavascript } from 'react-icons/si'
 
-const SkillCard = ({ icon, title, description }: { icon: any; title: string; description: string }) => (
-  <VStack
-    p={6}
-    bg="white"
-    rounded="lg"
-    boxShadow="md"
-    spacing={4}
-    align="start"
-    _hover={{ transform: 'translateY(-5px)', transition: 'all 0.3s ease' }}
-  >
-    <Icon as={icon} w={10} h={10} color="blue.500" />
-    <Text fontWeight="bold" fontSize="lg">{title}</Text>
-    <Text color="gray.600">{description}</Text>
-  </VStack>
+const SkillCard = ({ icon: Icon, title, description }: { icon: any; title: string; description: string }) => (
+  <div className="p-6 bg-white rounded-lg shadow-md hover:-translate-y-1 transition-transform duration-300">
+    <Icon className="w-10 h-10 text-primary-500" />
+    <h3 className="text-lg font-bold mt-4">{title}</h3>
+    <p className="text-gray-600 mt-2">{description}</p>
+  </div>
 )
 
 const Skills = () => {
@@ -53,25 +44,18 @@ const Skills = () => {
   ]
 
   return (
-    <Box
-      as="section"
-      id="skills"
-      py={20}
-      bg="gray.50"
-    >
-      <Container maxW="1200px">
-        <VStack spacing={12}>
-          <Heading as="h2" size="xl" textAlign="center">
-            Skills & Technologies
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} w="full">
+    <section id="skills" className="py-20 bg-gray-50">
+      <div className="container mx-auto">
+        <div className="flex flex-col items-center space-y-12">
+          <h2 className="text-3xl font-bold text-center">Skills & Technologies</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {skills.map((skill, index) => (
               <SkillCard key={index} {...skill} />
             ))}
-          </SimpleGrid>
-        </VStack>
-      </Container>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
