@@ -1,59 +1,46 @@
-import { FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa'
-import { SiTypescript, SiJavascript } from 'react-icons/si'
+import { motion } from 'framer-motion'
+import { FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDocker } from 'react-icons/fa'
+import { SiTypescript, SiTailwindcss, SiMongodb } from 'react-icons/si'
 
-const SkillCard = ({ icon: Icon, title, description }: { icon: any; title: string; description: string }) => (
-  <div className="p-6 bg-white rounded-lg shadow-md hover:-translate-y-1 transition-transform duration-300">
-    <Icon className="w-10 h-10 text-primary-500" />
-    <h3 className="text-lg font-bold mt-4">{title}</h3>
-    <p className="text-gray-600 mt-2">{description}</p>
-  </div>
-)
+const skills = [
+  { name: 'React', icon: FaReact, color: 'text-blue-500' },
+  { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-600' },
+  { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500' },
+  { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
+  { name: 'SQL', icon: FaDatabase, color: 'text-blue-400' },
+  { name: 'Git', icon: FaGitAlt, color: 'text-orange-500' },
+  { name: 'Docker', icon: FaDocker, color: 'text-blue-600' },
+  { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-cyan-500' },
+]
 
 const Skills = () => {
-  const skills = [
-    {
-      icon: FaReact,
-      title: "Frontend Development",
-      description: "React, Next.js, HTML5, CSS3, Responsive Design"
-    },
-    {
-      icon: FaNodeJs,
-      title: "Backend Development",
-      description: "Node.js, Express, RESTful APIs, GraphQL"
-    },
-    {
-      icon: SiTypescript,
-      title: "TypeScript",
-      description: "Type-safe development, interfaces, generics"
-    },
-    {
-      icon: SiJavascript,
-      title: "JavaScript",
-      description: "ES6+, Modern JavaScript features, DOM manipulation"
-    },
-    {
-      icon: FaDatabase,
-      title: "Database",
-      description: "SQL, NoSQL, Database design and optimization"
-    },
-    {
-      icon: FaGitAlt,
-      title: "Version Control",
-      description: "Git, GitHub, GitLab, CI/CD"
-    }
-  ]
-
   return (
-    <section id="skills" className="py-20 bg-gray-50">
-      <div className="container mx-auto">
-        <div className="flex flex-col items-center space-y-12">
-          <h2 className="text-3xl font-bold text-center">Skills & Technologies</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+    <section id="skills" className="py-20 bg-gray-50 dark:bg-dark-300 transition-colors duration-300">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center">Skills & Technologies</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {skills.map((skill, index) => (
-              <SkillCard key={index} {...skill} />
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center p-6 bg-white dark:bg-dark-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              >
+                <skill.icon className={`text-4xl ${skill.color} mb-4`} />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{skill.name}</h3>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
