@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { TypeAnimation } from 'react-type-animation'
 import { useSpring, animated } from '@react-spring/web'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import Particles from '@tsparticles/react'
 import { loadSlim } from '@tsparticles/slim'
 import type { Engine } from '@tsparticles/engine'
@@ -23,7 +23,6 @@ const Hero = () => {
       {/* Particles Background */}
       <Particles
         id="tsparticles"
-        init={particlesInit}
         options={{
           background: {
             color: {
@@ -78,10 +77,6 @@ const Hero = () => {
               straight: false,
             },
             number: {
-              density: {
-                enable: true,
-                value: 800,
-              },
               value: 80,
             },
             opacity: {
@@ -99,6 +94,7 @@ const Hero = () => {
         className="absolute inset-0"
       />
 
+      {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           <animated.div style={springs} className="flex-1 text-center md:text-left">
@@ -120,7 +116,7 @@ const Hero = () => {
                 sequence={[
                   'Full Stack Developer',
                   1000,
-                  'UI/UX Enthusiast',
+                  'Embedded System Developer',
                   1000,
                   'Problem Solver',
                   1000,

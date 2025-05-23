@@ -12,23 +12,24 @@ export default {
           50: '#f0f9ff',
           100: '#e0f2fe',
           200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          300: '#818cf8',
+          400: '#6366f1',
+          500: '#4f46e5',
+          600: '#4338ca',
+          700: '#3730a3',
+          800: '#29257e',
+          900: '#1e1b5b',
         },
         dark: {
           100: '#1E293B',
-          200: '#0F172A',
-          300: '#020617',
+          200: '#1f2937',
+          300: '#111827',
         },
         accent: {
           100: '#818CF8',
-          200: '#6366F1',
-          300: '#4F46E5',
+          200: '#a5b4fc',
+          300: '#818cf8',
+          400: '#6366f1',
         }
       },
       backgroundImage: {
@@ -37,12 +38,23 @@ export default {
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
+        'gradient-x': 'gradient-x 15s ease infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
-        }
+        },
+        'gradient-x': {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          },
+        },
       }
     },
   },

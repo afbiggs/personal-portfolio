@@ -25,7 +25,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="fixed w-full z-50 bg-white/80 dark:bg-dark-200/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <nav className="fixed w-full z-50 bg-gray-50/90 dark:bg-dark-300/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <a href="#" className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
