@@ -1,7 +1,8 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import profileImage from '../assets/images/profile-image.jpeg'
+import { AnimatePresence } from 'framer-motion'
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -29,6 +30,22 @@ const Hero = () => {
     mouseX.set(x * 20)
     mouseY.set(y * 20)
   }
+
+  // Auto-changing text effect
+  const [currentTitle, setCurrentTitle] = useState(0)
+  const titles = [
+    "Full Stack Developer",
+    "Web Developer",
+    "UI/UX Designer",
+    "Problem Solver"
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTitle((prev) => (prev + 1) % titles.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
 
   // Floating elements animation
   const [isHovered, setIsHovered] = useState(false)
@@ -85,13 +102,22 @@ const Hero = () => {
                   transition={{ delay: 0.2 }}
                   className="text-6xl md:text-7xl font-bold text-white relative"
                 >
-                  Alex Biggs
-                  <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-[#4F46E5]"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                  />
+                  <span className="relative">
+                    Alex Biggs
+                    <motion.div
+                      className="absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-[#4F46E5] via-[#7C3AED] to-[#4F46E5]"
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ delay: 0.8, duration: 0.8 }}
+                    />
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-[#4F46E5]/10 via-[#7C3AED]/10 to-[#4F46E5]/10 opacity-0"
+                      animate={{
+                        opacity: [0, 0.1, 0],
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    />
+                  </span>
                 </motion.h1>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -99,12 +125,39 @@ const Hero = () => {
                   transition={{ delay: 0.4 }}
                   className="space-y-4"
                 >
-                  <h2 className="text-2xl md:text-3xl font-medium text-[#4F46E5]">
-                    Full Stack Developer
+                  <h2 className="text-2xl md:text-3xl font-medium relative h-12">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={currentTitle}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] via-[#7C3AED] to-[#4F46E5]"
+                      >
+                        {titles[currentTitle]}
+                      </motion.span>
+                    </AnimatePresence>
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-[#4F46E5]/5 via-[#7C3AED]/5 to-[#4F46E5]/5"
+                      animate={{
+                        opacity: [0.05, 0.1, 0.05],
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    />
                   </h2>
-                  <p className="text-[#CBD5E1] text-lg leading-relaxed">
-                    Specializing in web development and embedded systems. 
-                    Building solutions that solve real problems.
+                  <p className="text-[#CBD5E1] text-lg leading-relaxed relative">
+                    <span className="relative z-10">
+                      Specializing in web development and embedded systems. 
+                      Building solutions that solve real problems.
+                    </span>
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-[#4F46E5]/5 via-[#7C3AED]/5 to-[#4F46E5]/5"
+                      animate={{
+                        opacity: [0.02, 0.05, 0.02],
+                      }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    />
                   </p>
                 </motion.div>
               </div>
