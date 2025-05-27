@@ -1,206 +1,267 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { TypeAnimation } from 'react-type-animation'
-import { useSpring, animated } from '@react-spring/web'
-import { useCallback, useEffect, useRef } from 'react'
-import Particles from '@tsparticles/react'
-import { loadSlim } from '@tsparticles/slim'
-import type { Engine } from '@tsparticles/engine'
+import { useRef, useState } from 'react'
+import profileImage from '../assets/images/profile-image.jpeg'
 
 const Hero = () => {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine)
-  }, [])
-
-  const springs = useSpring({
-    from: { y: 50, opacity: 0 },
-    to: { y: 0, opacity: 1 },
-    config: { tension: 300, friction: 20 }
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
   })
 
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
+
+  // Mouse movement tracking for 3D effect
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 20, stiffness: 300 }
+  const springX = useSpring(mouseX, springConfig)
+  const springY = useSpring(mouseY, springConfig)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    const x = (clientX - left) / width - 0.5
+    const y = (clientY - top) / height - 0.5
+    mouseX.set(x * 20)
+    mouseY.set(y * 20)
+  }
+
+  // Floating elements animation
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-dark-200 transition-colors duration-300">
-      {/* Particles Background */}
-      <Particles
-        id="tsparticles"
-        options={{
-          background: {
-            color: {
-              value: "transparent",
-            },
-          },
-          fpsLimit: 60,
-          interactivity: {
-            events: {
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-              onHover: {
-                enable: true,
-                mode: "repulse",
-              },
-              resize: {
-                enable: true,
-                delay: 0.5,
-              },
-            },
-            modes: {
-              push: {
-                quantity: 4,
-              },
-              repulse: {
-                distance: 100,
-                duration: 0.4,
-              },
-            },
-          },
-          particles: {
-            color: {
-              value: "#4f46e5",
-            },
-            links: {
-              color: "#4f46e5",
-              distance: 150,
-              enable: true,
-              opacity: 0.3,
-              width: 1,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outModes: {
-                default: "bounce",
-              },
-              random: false,
-              speed: 1,
-              straight: false,
-            },
-            number: {
-              value: 80,
-            },
-            opacity: {
-              value: 0.3,
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              value: { min: 1, max: 3 },
-            },
-          },
-          detectRetina: true,
-        }}
+    <section 
+      ref={containerRef} 
+      className="relative min-h-screen bg-[#0A0F1C] overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        mouseX.set(0)
+        mouseY.set(0)
+      }}
+    >
+      {/* Animated Background */}
+      <motion.div 
         className="absolute inset-0"
-      />
+        style={{ y, opacity, scale }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1E1B4B] via-[#0A0F1C] to-[#1E1B4B]" />
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: [
+              "radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)",
+              "radial-gradient(circle at 70% 60%, rgba(124, 58, 237, 0.15) 0%, transparent 50%)",
+              "radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)"
+            ]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        />
+      </motion.div>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-          <animated.div style={springs} className="flex-1 text-center md:text-left">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
-            >
-              Hi, I'm Alex Biggs
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-2xl md:text-3xl font-semibold text-primary-500 dark:text-primary-400 mb-8"
-            >
-              <TypeAnimation
-                sequence={[
-                  'Full Stack Developer',
-                  1000,
-                  'Embedded System Developer',
-                  1000,
-                  'Problem Solver',
-                  1000,
-                  'Tech Innovator',
-                  1000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-              />
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto md:mx-0"
-            >
-              I build exceptional digital experiences that make an impact. 
-              Let's create something amazing together.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="flex flex-wrap justify-center md:justify-start gap-4"
-            >
-              <a
-                href="#contact"
-                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-accent-300 text-white font-semibold rounded-lg hover:from-primary-600 hover:to-accent-400 transition-all duration-300 transform hover:-translate-y-1"
-              >
-                Get in Touch
-              </a>
-              <a
-                href="#projects"
-                className="px-8 py-3 bg-white dark:bg-dark-300 text-primary-500 font-semibold rounded-lg border-2 border-primary-500 hover:bg-primary-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1"
-              >
-                View Projects
-              </a>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex justify-center md:justify-start gap-6 mt-8"
-            >
-              <a
-                href="https://github.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-              >
-                <FaGithub className="text-2xl" />
-              </a>
-              <a
-                href="https://linkedin.com/in/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-              >
-                <FaLinkedin className="text-2xl" />
-              </a>
-              <a
-                href="https://twitter.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-              >
-                <FaTwitter className="text-2xl" />
-              </a>
-            </motion.div>
-          </animated.div>
+      <div className="container mx-auto px-4 pt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 min-h-[calc(100vh-5rem)] items-center">
+          {/* Left Side - Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10"
+            style={{
+              rotateX: springY,
+              rotateY: springX,
+              transformStyle: "preserve-3d",
+            }}
+          >
+            <div className="space-y-8">
+              {/* Main Content */}
+              <div className="space-y-6">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-6xl md:text-7xl font-bold text-white relative"
+                >
+                  Alex Biggs
+                  <motion.div
+                    className="absolute -bottom-2 left-0 h-1 bg-[#4F46E5]"
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ delay: 0.8, duration: 0.8 }}
+                  />
+                </motion.h1>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="space-y-4"
+                >
+                  <h2 className="text-2xl md:text-3xl font-medium text-[#4F46E5]">
+                    Full Stack Developer
+                  </h2>
+                  <p className="text-[#CBD5E1] text-lg leading-relaxed">
+                    Specializing in web development and embedded systems. 
+                    Building solutions that solve real problems.
+                  </p>
+                </motion.div>
+              </div>
 
-          {/* Profile Image Placeholder */}
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex flex-wrap gap-6"
+              >
+                <motion.a
+                  href="#contact"
+                  className="group relative px-8 py-4 bg-[#4F46E5] text-white font-semibold rounded-lg overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="relative z-10">Contact Me</span>
+                  <motion.div
+                    className="absolute inset-0 bg-white/10"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </motion.a>
+                <motion.a
+                  href="#projects"
+                  className="group relative px-8 py-4 bg-transparent text-[#CBD5E1] font-semibold rounded-lg border-2 border-[#4F46E5] overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="relative z-10">See My Work</span>
+                  <motion.div
+                    className="absolute inset-0 bg-[#4F46E5]"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </motion.a>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="flex gap-8"
+              >
+                {[
+                  { icon: FaGithub, href: "https://github.com/yourusername" },
+                  { icon: FaLinkedin, href: "https://linkedin.com/in/yourusername" },
+                  { icon: FaTwitter, href: "https://twitter.com/yourusername" }
+                ].map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#CBD5E1] hover:text-[#4F46E5] transition-colors"
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <social.icon className="text-3xl" />
+                  </motion.a>
+                ))}
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Right Side - Profile Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex-1 flex justify-center"
+            transition={{ duration: 0.5 }}
+            className="relative"
+            style={{
+              rotateX: springY,
+              rotateY: springX,
+              transformStyle: "preserve-3d",
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            <div className="relative w-64 h-64 md:w-80 md:h-80">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-accent-300 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute inset-2 bg-white dark:bg-dark-300 rounded-full flex items-center justify-center">
-                <span className="text-4xl text-primary-500">👨‍💻</span>
+            <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto">
+              {/* Cyberpunk Border Effect */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "conic-gradient(from 0deg, #4F46E5, #7C3AED, #EC4899, #4F46E5)"
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              />
+
+              {/* Image Container with Padding */}
+              <div className="absolute inset-2 rounded-full overflow-hidden bg-[#0A0F1C]">
+                <motion.img
+                  src={profileImage}
+                  alt="Alex Biggs"
+                  className="w-full h-full object-cover"
+                  animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                />
               </div>
+
+              {/* Neon Glow */}
+              <motion.div
+                className="absolute -inset-1 rounded-full"
+                style={{
+                  background: "radial-gradient(circle at center, #4F46E5, transparent 70%)",
+                  filter: "blur(8px)"
+                }}
+                animate={isHovered ? {
+                  opacity: 0.5,
+                  scale: 1.1
+                } : {
+                  opacity: 0.2,
+                  scale: 1
+                }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* Glitch Effect */}
+              <motion.div
+                className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
+                animate={isHovered ? {
+                  opacity: [0, 0.1, 0],
+                  x: ["0%", "-2%", "2%", "0%"]
+                } : {
+                  opacity: 0,
+                  x: "0%"
+                }}
+                transition={{
+                  duration: 0.2,
+                  repeat: isHovered ? 2 : 0,
+                  repeatType: "reverse"
+                }}
+              >
+                <div className="absolute inset-0 bg-[#4F46E5] mix-blend-overlay" />
+              </motion.div>
+
+              {/* Digital Noise Overlay */}
+              <motion.div
+                className="absolute inset-0 rounded-full opacity-0 pointer-events-none"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                  mixBlendMode: "overlay"
+                }}
+                animate={isHovered ? { opacity: 0.1 } : { opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
             </div>
           </motion.div>
         </div>

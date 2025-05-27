@@ -24,6 +24,8 @@ export default {
           100: '#1E293B',
           200: '#1f2937',
           300: '#111827',
+          400: '#0f172a',
+          500: '#020617',
         },
         accent: {
           100: '#818CF8',
@@ -39,6 +41,8 @@ export default {
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'gradient-x': 'gradient-x 15s ease infinite',
+        blink: 'blink 1s step-end infinite',
+        scan: 'scan 8s linear infinite',
       },
       keyframes: {
         float: {
@@ -54,6 +58,14 @@ export default {
             'background-size': '200% 200%',
             'background-position': 'right center'
           },
+        },
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        scan: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100%)' },
         },
       }
     },

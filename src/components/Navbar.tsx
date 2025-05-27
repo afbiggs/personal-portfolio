@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isDark, setIsDark] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     // Check if user has a theme preference in localStorage
@@ -12,6 +14,12 @@ const Navbar = () => {
       setIsDark(savedTheme === 'dark')
       document.documentElement.classList.toggle('dark', savedTheme === 'dark')
     }
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const toggleTheme = () => {
@@ -20,102 +28,213 @@ const Navbar = () => {
     localStorage.setItem('theme', !isDark ? 'dark' : 'light')
   }
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+  const navItems = [
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Contact', href: '#contact' }
+  ]
 
   return (
-    <nav className="fixed w-full z-50 bg-gray-50/90 dark:bg-dark-300/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled ? 'bg-[#0A0F1C]/80 backdrop-blur-md' : 'bg-transparent'
+      }`}
+    >
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <a href="#" className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
-            Your Name
-          </a>
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <motion.a
+            href="#"
+            className="text-2xl font-bold text-white relative group"
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="relative z-10">AB</span>
+            <motion.div
+              className="absolute -inset-1 bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] opacity-0 group-hover:opacity-20 blur-sm"
+              transition={{ duration: 0.3 }}
+            />
+          </motion.a>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-              About
-            </a>
-            <a href="#skills" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-              Skills
-            </a>
-            <a href="#projects" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-              Projects
-            </a>
-            <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-              Contact
-            </a>
-            <button
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8 items-center">
+            {navItems.map((item) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                className="relative text-[#CBD5E1] hover:text-white transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10">{item.name}</span>
+                <motion.div
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#4F46E5] to-[#7C3AED]"
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.a>
+            ))}
+            {/* Theme Toggle Button */}
+            <motion.button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
-              aria-label="Toggle theme"
+              className="relative p-2 rounded-lg bg-[#1E1B4B]/50 hover:bg-[#1E1B4B]/80 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <div className="relative w-6 h-6">
-                <FaSun className={`absolute w-5 h-5 transition-all duration-300 ${isDark ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
-                <FaMoon className={`absolute w-5 h-5 transition-all duration-300 ${isDark ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{
+                    rotate: isDark ? 0 : 90,
+                    opacity: isDark ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaMoon className="w-5 h-5 text-[#CBD5E1]" />
+                </motion.div>
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{
+                    rotate: isDark ? -90 : 0,
+                    opacity: isDark ? 0 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaSun className="w-5 h-5 text-[#CBD5E1]" />
+                </motion.div>
               </div>
-            </button>
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] opacity-0"
+                whileHover={{ opacity: 0.2 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button and Theme Toggle */}
           <div className="md:hidden flex items-center space-x-4">
-            <button
+            <motion.button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
-              aria-label="Toggle theme"
+              className="relative p-2 rounded-lg bg-[#1E1B4B]/50 hover:bg-[#1E1B4B]/80 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <div className="relative w-6 h-6">
-                <FaSun className={`absolute w-5 h-5 transition-all duration-300 ${isDark ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
-                <FaMoon className={`absolute w-5 h-5 transition-all duration-300 ${isDark ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{
+                    rotate: isDark ? 0 : 90,
+                    opacity: isDark ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaMoon className="w-5 h-5 text-[#CBD5E1]" />
+                </motion.div>
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{
+                    rotate: isDark ? -90 : 0,
+                    opacity: isDark ? 0 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaSun className="w-5 h-5 text-[#CBD5E1]" />
+                </motion.div>
               </div>
-            </button>
-            <button
-              className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-              onClick={toggleMenu}
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] opacity-0"
+                whileHover={{ opacity: 0.2 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
+            <motion.button
+              className="text-white"
+              onClick={() => setIsOpen(!isOpen)}
+              whileTap={{ scale: 0.95 }}
             >
-              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
+              <div className="relative w-6 h-6">
+                <motion.div
+                  className="absolute w-6 h-0.5 bg-white"
+                  animate={{
+                    rotate: isOpen ? 45 : 0,
+                    y: isOpen ? 8 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.div
+                  className="absolute w-6 h-0.5 bg-white"
+                  animate={{
+                    opacity: isOpen ? 0 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.div
+                  className="absolute w-6 h-0.5 bg-white"
+                  animate={{
+                    rotate: isOpen ? -45 : 0,
+                    y: isOpen ? -8 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+            </motion.button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden bg-white/95 dark:bg-dark-200/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a
-                href="#about"
-                className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                onClick={toggleMenu}
-              >
-                About
-              </a>
-              <a
-                href="#skills"
-                className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                onClick={toggleMenu}
-              >
-                Skills
-              </a>
-              <a
-                href="#projects"
-                className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                onClick={toggleMenu}
-              >
-                Projects
-              </a>
-              <a
-                href="#contact"
-                className="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                onClick={toggleMenu}
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-        )}
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="py-4 space-y-4">
+                {navItems.map((item) => (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    className="block text-[#CBD5E1] hover:text-white transition-colors relative"
+                    onClick={() => setIsOpen(false)}
+                    whileHover={{ x: 10 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="relative z-10">{item.name}</span>
+                    <motion.div
+                      className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#4F46E5] to-[#7C3AED]"
+                      whileHover={{ width: '100%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+
+      {/* Glitch Effect on Scroll */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        animate={scrolled ? {
+          opacity: [0, 0.1, 0],
+          x: ["0%", "-1%", "1%", "0%"]
+        } : {
+          opacity: 0,
+          x: "0%"
+        }}
+        transition={{
+          duration: 0.2,
+          repeat: scrolled ? 1 : 0,
+          repeatType: "reverse"
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] mix-blend-overlay" />
+      </motion.div>
+    </motion.nav>
   )
 }
 
