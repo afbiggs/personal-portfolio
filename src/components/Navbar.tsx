@@ -1,32 +1,19 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa'
+import { FaBars, FaTimes } from 'react-icons/fa'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [isDark, setIsDark] = useState(true)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    // Check if user has a theme preference in localStorage
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      setIsDark(savedTheme === 'dark')
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark')
-    }
-
+    document.documentElement.classList.add('dark')
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle('dark')
-    localStorage.setItem('theme', !isDark ? 'dark' : 'light')
-  }
 
   const navItems = [
     { name: 'About', href: '#about' },
@@ -76,79 +63,10 @@ const Navbar = () => {
                 />
               </motion.a>
             ))}
-            {/* Theme Toggle Button */}
-            <motion.button
-              onClick={toggleTheme}
-              className="relative p-2 rounded-lg bg-[#1E1B4B]/50 hover:bg-[#1E1B4B]/80 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="relative w-6 h-6">
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{
-                    rotate: isDark ? 0 : 90,
-                    opacity: isDark ? 1 : 0
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FaMoon className="w-5 h-5 text-[#CBD5E1]" />
-                </motion.div>
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{
-                    rotate: isDark ? -90 : 0,
-                    opacity: isDark ? 0 : 1
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FaSun className="w-5 h-5 text-[#CBD5E1]" />
-                </motion.div>
-              </div>
-              <motion.div
-                className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] opacity-0"
-                whileHover={{ opacity: 0.2 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
           </div>
 
-          {/* Mobile Menu Button and Theme Toggle */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <motion.button
-              onClick={toggleTheme}
-              className="relative p-2 rounded-lg bg-[#1E1B4B]/50 hover:bg-[#1E1B4B]/80 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="relative w-6 h-6">
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{
-                    rotate: isDark ? 0 : 90,
-                    opacity: isDark ? 1 : 0
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FaMoon className="w-5 h-5 text-[#CBD5E1]" />
-                </motion.div>
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{
-                    rotate: isDark ? -90 : 0,
-                    opacity: isDark ? 0 : 1
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FaSun className="w-5 h-5 text-[#CBD5E1]" />
-                </motion.div>
-              </div>
-              <motion.div
-                className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] opacity-0"
-                whileHover={{ opacity: 0.2 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
             <motion.button
               className="text-white"
               onClick={() => setIsOpen(!isOpen)}

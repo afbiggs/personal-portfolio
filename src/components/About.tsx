@@ -90,24 +90,9 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="relative py-20 bg-[#0A0F1C] overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1E1B4B] via-[#0A0F1C] to-[#1E1B4B]" />
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 60%, rgba(124, 58, 237, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="about" className="relative min-h-screen overflow-hidden">
+      {/* Removed local background */}
+      <div className="container mx-auto px-4 py-32">
         <div className="max-w-4xl mx-auto">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}

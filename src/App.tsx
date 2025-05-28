@@ -5,25 +5,29 @@ import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
+import GlobalBackground from './components/GlobalBackground'
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-50 dark:bg-dark-300 transition-colors duration-300">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <About />
-              <Skills />
-              <Projects />
-              <Contact />
-            </>
-          } />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <GlobalBackground />
+      <Router>
+        <div className="min-h-screen">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero />
+                <About />
+                <Skills />
+                <Projects />
+                <Contact />
+              </>
+            } />
+          </Routes>
+        </div>
+      </Router>
+    </>
   )
 }
 

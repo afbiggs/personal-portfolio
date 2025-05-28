@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { useRef, useState, useEffect } from 'react'
 import profileImage from '../assets/images/profile-image.jpeg'
@@ -6,14 +6,6 @@ import { AnimatePresence } from 'framer-motion'
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
 
   // Mouse movement tracking for 3D effect
   const mouseX = useMotionValue(0)
@@ -53,32 +45,14 @@ const Hero = () => {
   return (
     <section 
       ref={containerRef} 
-      className="relative min-h-screen bg-[#0A0F1C] overflow-hidden"
+      className="relative min-h-screen overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={() => {
         mouseX.set(0)
         mouseY.set(0)
       }}
     >
-      {/* Animated Background */}
-      <motion.div 
-        className="absolute inset-0"
-        style={{ y, opacity, scale }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1E1B4B] via-[#0A0F1C] to-[#1E1B4B]" />
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 60%, rgba(124, 58, 237, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)"
-            ]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
-      </motion.div>
-
+      {/* Removed local background */}
       <div className="container mx-auto px-4 pt-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 min-h-[calc(100vh-5rem)] items-center">
           {/* Left Side - Content */}
