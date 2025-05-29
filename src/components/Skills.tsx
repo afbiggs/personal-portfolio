@@ -74,7 +74,7 @@ const Skills = () => {
                 }}
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
               >
-                <span>{cat.label}</span>
+                <span className={openIndex === idx ? 'animate-glitch' : ''}>{cat.label}</span>
                 <motion.span
                   animate={{ rotate: openIndex === idx ? 90 : 0 }}
                   className="ml-2 text-2xl text-[#CBD5E1] group-hover:text-white transition-colors"

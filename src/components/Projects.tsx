@@ -28,6 +28,12 @@ const projects = [
   }
 ]
 
+const projectColors = [
+  "#4F46E5",
+  "#EC4899",
+  "#7C3AED"
+]
+
 const Projects = () => {
   return (
     <section id="projects" className="relative min-h-screen overflow-hidden">
@@ -49,6 +55,10 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                style={{
+                  borderColor: projectColors[index % projectColors.length],
+                  boxShadow: `0 0 20px ${projectColors[index % projectColors.length]}40, 0 0 0 2px ${projectColors[index % projectColors.length]}`
+                }}
                 className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
