@@ -3,6 +3,14 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 
 const projects = [
   {
+    title: "Tennis Ball Machine",
+    description: "A self-built, portable tennis ball machine designed to deliver customizable shots with adjustable speed, spin, and feeding rate. Combines mechanical design, electronics, and programming for an affordable alternative to commercial machines.",
+    image: "/images/tennis-ball-machine.jpg", // Replace with a real image if available
+    technologies: ["C++", "Arduino", "Electronics", "Mechanical Design"],
+    github: "https://github.com/afbiggs/Tennis-Ball-Machine",
+    live: null
+  },
+  {
     title: "Project One",
     description: "A full-stack web application built with React and Node.js",
     image: "https://via.placeholder.com/600x400",
@@ -17,22 +25,10 @@ const projects = [
     technologies: ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
     github: "https://github.com/yourusername/project-two",
     live: "https://project-two.com"
-  },
-  {
-    title: "Project Three",
-    description: "A social media dashboard with analytics and reporting",
-    image: "https://via.placeholder.com/600x400",
-    technologies: ["React", "Redux", "Firebase", "Chart.js"],
-    github: "https://github.com/yourusername/project-three",
-    live: "https://project-three.com"
   }
 ]
 
-const projectColors = [
-  "#4F46E5",
-  "#EC4899",
-  "#7C3AED"
-]
+const projectColors = ['#4F46E5', '#7C3AED', '#EC4899'];
 
 const Projects = () => {
   return (
@@ -53,13 +49,19 @@ const Projects = () => {
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
                 viewport={{ once: true }}
                 style={{
                   borderColor: projectColors[index % projectColors.length],
-                  boxShadow: `0 0 20px ${projectColors[index % projectColors.length]}40, 0 0 0 2px ${projectColors[index % projectColors.length]}`
+                  boxShadow: `0 0 24px 2px ${projectColors[index % projectColors.length]}55, 0 0 0 2px ${projectColors[index % projectColors.length]}`
                 }}
-                className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: `0 0 48px 6px ${projectColors[index % projectColors.length]}, 0 0 0 3px ${projectColors[index % projectColors.length]}`,
+                  zIndex: 10,
+                  transition: { duration: 0.25, ease: 'easeOut' }
+                }}
+                className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300 transform border-2"
               >
                 <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                 <div className="p-6">
@@ -82,15 +84,17 @@ const Projects = () => {
                       <FaGithub />
                       <span>Code</span>
                     </a>
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 text-[#CBD5E1] hover:text-[#4F46E5] transition-colors"
-                    >
-                      <FaExternalLinkAlt />
-                      <span>Live Demo</span>
-                    </a>
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2 text-[#CBD5E1] hover:text-[#4F46E5] transition-colors"
+                      >
+                        <FaExternalLinkAlt />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </motion.div>
