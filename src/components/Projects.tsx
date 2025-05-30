@@ -1,3 +1,4 @@
+import { useState, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 
@@ -5,7 +6,7 @@ const projects = [
   {
     title: "Tennis Ball Machine",
     description: "A self-built, portable tennis ball machine designed to deliver customizable shots with adjustable speed, spin, and feeding rate. Combines mechanical design, electronics, and programming for an affordable alternative to commercial machines.",
-    image: "/images/tennis-ball-machine.jpg", // Replace with a real image if available
+    image: "/images/tennis-ball-machine.gif",
     technologies: ["C++", "Arduino", "Electronics", "Mechanical Design"],
     github: "https://github.com/afbiggs/Tennis-Ball-Machine",
     live: null
@@ -31,9 +32,35 @@ const projects = [
 const projectColors = ['#4F46E5', '#7C3AED', '#EC4899'];
 
 const Projects = () => {
+  const [modalImage, setModalImage] = useState<string | null>(null);
+
+  // Close modal on Escape key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') setModalImage(null);
+  }, []);
+  useEffect(() => {
+    if (modalImage) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [modalImage, handleKeyDown]);
+
   return (
     <section id="projects" className="relative min-h-screen overflow-hidden">
-      {/* Removed local background */}
+      {/* Modal for full image */}
+      {modalImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setModalImage(null)}
+        >
+          <img
+            src={modalImage}
+            alt="Full Project Preview"
+            className="max-h-[80vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED]"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
       <div className="container mx-auto px-4 py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,7 +90,18 @@ const Projects = () => {
                 }}
                 className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300 transform border-2"
               >
-                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                <div className="relative w-full h-48 bg-black flex items-center justify-center cursor-pointer"
+                  onClick={() => project.title === 'Tennis Ball Machine' ? setModalImage(project.image) : undefined}
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-48 object-contain"
+                  />
+                  {project.title === 'Tennis Ball Machine' && (
+                    <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">Click to enlarge</span>
+                  )}
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
                   <p className="text-[#CBD5E1] mb-4">{project.description}</p>
