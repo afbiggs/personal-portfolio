@@ -27,7 +27,14 @@ const projects = [
     github: "https://github.com/yourusername/project-one",
     live: "https://project-one.com"
   },
-  
+  {
+    title: "Tattoo Artist Portfolio & Booking (Coming Soon)",
+    description: "A custom website for a professional tattoo artist, featuring a modern portfolio gallery, integrated scheduling/booking system, and client management tools. Built with a focus on user experience, mobile responsiveness, and seamless appointment handling. Planned tech stack includes React, Node.js, and a cloud database.",
+    image: "public/images/coming-soon-neon-lights.jpg",
+    technologies: ["React", "Node.js", "Booking System", "Responsive Design", "Cloud Database"],
+    github: undefined,
+    live: undefined
+  },
 ]
 
 const projectColors = ['#4F46E5', '#7C3AED', '#EC4899'];
@@ -132,6 +139,7 @@ const Projects = () => {
                     scale = 0.8;
                     opacity = 0.4;
                   }
+                  const isTattooCard = project.title.includes('Tattoo Artist');
                   return (
                     <motion.div
                       key={project.title}
@@ -148,14 +156,19 @@ const Projects = () => {
                       }}
                       className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300 border-2 flex flex-col"
                     >
-                      <div className="relative w-full flex items-center justify-center bg-black"
+                      <div
+                        className={`relative w-full flex items-center justify-center bg-black`}
                         style={{ height: IMAGE_SIZE, minHeight: IMAGE_SIZE, maxHeight: IMAGE_SIZE }}
                         onClick={() => project.title === 'Tennis Ball Machine' ? setModalImage(project.image) : undefined}
                       >
                         <img
                           src={project.image}
                           alt={project.title}
-                          className="object-contain"
+                          className={
+                            isTattooCard
+                              ? 'w-full h-full object-cover'
+                              : 'object-contain'
+                          }
                           style={{ width: IMAGE_SIZE, height: IMAGE_SIZE }}
                         />
                         {project.title === 'Tennis Ball Machine' && (
