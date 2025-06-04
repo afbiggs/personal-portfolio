@@ -14,8 +14,22 @@ const projects = [
   {
     title: "Gauer Metal Machine Retrofit",
     description: "Designed and developed a modern touch screen control interface for an outdated non-functioning metal flattening & shearing machine, enabling seamless operation and integration with legacy hardware. Built the front-end UI using React/JavaScript hosted locally on a Raspberry Pi, developed the backend server with Node.js, and implemented control software in C++ running on an ESP32 to process user inputs and control signals. Established real-time communication through serial connections and WebSockets, successfully modernizing the machine's operation while maintaining compatibility with existing hardware.",
-    image: "/images/control-system.jpg",
+    images: [
+      "/images/gauer-testing.jpeg",
+      "/images/gauerUI.jpeg",
+      "/images/controlbox-electronics.jpeg",
+      "/images/rear.jpeg",
+      "/images/gauer-machine.jpeg",
+    ],
     technologies: ["React", "Node.js", "C++", "ESP32", "Raspberry Pi", "WebSockets", "Serial Communication", "Linux"],
+    github: undefined,
+    live: undefined
+  },
+  {
+    title: "Tattoo Artist Portfolio & Booking (Coming Soon)",
+    description: "A custom website for a professional tattoo artist, featuring a modern portfolio gallery, integrated scheduling/booking system, and client management tools. Built with a focus on user experience, mobile responsiveness, and seamless appointment handling. Planned tech stack includes React, Node.js, and a cloud database.",
+    image: "/images/coming-soon-neon-lights.jpg",
+    technologies: ["React", "Node.js", "Booking System", "Responsive Design", "Cloud Database"],
     github: undefined,
     live: undefined
   },
@@ -26,15 +40,7 @@ const projects = [
     technologies: ["React", "Node.js", "MongoDB", "Express"],
     github: "https://github.com/yourusername/project-one",
     live: "https://project-one.com"
-  },
-  {
-    title: "Tattoo Artist Portfolio & Booking (Coming Soon)",
-    description: "A custom website for a professional tattoo artist, featuring a modern portfolio gallery, integrated scheduling/booking system, and client management tools. Built with a focus on user experience, mobile responsiveness, and seamless appointment handling. Planned tech stack includes React, Node.js, and a cloud database.",
-    image: "public/images/coming-soon-neon-lights.jpg",
-    technologies: ["React", "Node.js", "Booking System", "Responsive Design", "Cloud Database"],
-    github: undefined,
-    live: undefined
-  },
+  }
 ]
 
 const projectColors = ['#4F46E5', '#7C3AED', '#EC4899'];
@@ -46,7 +52,11 @@ const VISIBLE_SIDE_CARDS = 2;
 
 const Projects = () => {
   const [modalImage, setModalImage] = useState<string | null>(null);
+  const [modalGauerIndex, setModalGauerIndex] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [gauerIndex, setGauerIndex] = useState(0);
+  const [gauerPaused, setGauerPaused] = useState(false);
+  const gauerImages = projects[1].images ?? [];
 
   const nextProject = () => {
     setCurrentIndex((prev) => (prev + 1) % projects.length);
@@ -68,14 +78,48 @@ const Projects = () => {
     }
   }, [modalImage, handleKeyDown]);
 
+  // Auto-cycle Gauer images
+  useEffect(() => {
+    if (gauerPaused || gauerImages.length === 0) return;
+    const interval = setInterval(() => {
+      setGauerIndex((prev) => (prev + 1) % gauerImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [gauerImages.length, gauerPaused]);
+
   return (
     <section id="projects" className="relative min-h-screen overflow-hidden">
       {/* Modal for full image */}
       {modalImage && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-          onClick={() => setModalImage(null)}
+          onClick={() => { setModalImage(null); setModalGauerIndex(null); }}
         >
+          {/* Gauer modal navigation */}
+          {modalGauerIndex !== null && (
+            <>
+              <button
+                className="absolute left-8 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50"
+                onClick={e => {
+                  e.stopPropagation();
+                  setModalGauerIndex((prev) => prev === 0 ? gauerImages.length - 1 : (prev! - 1));
+                  setModalImage(gauerImages[modalGauerIndex === 0 ? gauerImages.length - 1 : modalGauerIndex! - 1]);
+                }}
+              >
+                <FaChevronLeft size={32} />
+              </button>
+              <button
+                className="absolute right-8 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50"
+                onClick={e => {
+                  e.stopPropagation();
+                  setModalGauerIndex((prev) => prev === gauerImages.length - 1 ? 0 : (prev! + 1));
+                  setModalImage(gauerImages[modalGauerIndex === gauerImages.length - 1 ? 0 : modalGauerIndex! + 1]);
+                }}
+              >
+                <FaChevronRight size={32} />
+              </button>
+            </>
+          )}
           <img
             src={modalImage}
             alt="Full Project Preview"
@@ -140,6 +184,7 @@ const Projects = () => {
                     opacity = 0.4;
                   }
                   const isTattooCard = project.title.includes('Tattoo Artist');
+                  const isGauer = project.title.includes('Gauer');
                   return (
                     <motion.div
                       key={project.title}
@@ -157,22 +202,75 @@ const Projects = () => {
                       className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300 border-2 flex flex-col"
                     >
                       <div
-                        className={`relative w-full flex items-center justify-center bg-black`}
+                        className={`relative w-full flex items-center justify-center bg-black${isTattooCard ? '' : ''}`}
                         style={{ height: IMAGE_SIZE, minHeight: IMAGE_SIZE, maxHeight: IMAGE_SIZE }}
-                        onClick={() => project.title === 'Tennis Ball Machine' ? setModalImage(project.image) : undefined}
-                      >
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className={
-                            isTattooCard
-                              ? 'w-full h-full object-cover'
-                              : 'object-contain'
+                        onClick={() => {
+                          if (project.title === 'Tennis Ball Machine') {
+                            if (typeof project.image === 'string') setModalImage(project.image);
+                          } else if (isGauer) {
+                            const img = gauerImages[gauerIndex];
+                            if (typeof img === 'string') {
+                              setModalImage(img);
+                              setModalGauerIndex(gauerIndex);
+                            }
                           }
-                          style={{ width: IMAGE_SIZE, height: IMAGE_SIZE }}
-                        />
+                        }}
+                        onMouseEnter={isGauer ? () => setGauerPaused(true) : undefined}
+                        onMouseLeave={isGauer ? () => setGauerPaused(false) : undefined}
+                      >
+                        {isGauer ? (
+                          <img
+                            key={gauerImages[gauerIndex]}
+                            src={gauerImages[gauerIndex]}
+                            alt={project.title}
+                            className="w-full h-full object-cover cursor-pointer"
+                            style={{
+                              width: IMAGE_SIZE,
+                              height: IMAGE_SIZE,
+                              objectPosition: (
+                                gauerImages[gauerIndex].includes('testing')
+                                  ? 'center top'
+                                  : gauerImages[gauerIndex].includes('gauerUI')
+                                  ? 'center top'
+                                  : gauerImages[gauerIndex].includes('controlbox-electronics')
+                                  ? 'left center'
+                                  : gauerImages[gauerIndex].includes('rear')
+                                  ? 'center top'
+                                  : gauerImages[gauerIndex].includes('gauer-machine')
+                                  ? 'right center'
+                                  : 'center center'
+                              )
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className={
+                              isTattooCard
+                                ? 'w-full h-full object-cover'
+                                : 'object-contain'
+                            }
+                            style={{ width: IMAGE_SIZE, height: IMAGE_SIZE }}
+                          />
+                        )}
                         {project.title === 'Tennis Ball Machine' && (
                           <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">Click to enlarge</span>
+                        )}
+                        {isGauer && (
+                          <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">Click to enlarge</span>
+                        )}
+                        {isGauer && (
+                          <div className="absolute bottom-2 left-2 flex space-x-2">
+                            {gauerImages.map((img, i) => (
+                              <button
+                                key={img}
+                                onClick={e => { e.stopPropagation(); setGauerIndex(i); }}
+                                className={`w-3 h-3 rounded-full border border-[#7C3AED] ${gauerIndex === i ? 'bg-[#7C3AED]' : 'bg-[#18192A]'}`}
+                                aria-label={`Show image ${i + 1}`}
+                              />
+                            ))}
+                          </div>
                         )}
                       </div>
                       <div className="flex-1 p-6 overflow-y-auto min-h-0">
