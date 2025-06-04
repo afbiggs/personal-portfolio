@@ -144,7 +144,7 @@ const Projects = () => {
                     <FaChevronRight size={32} />
                   </button>
                 </div>
-                <div className="w-full max-w-2xl bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center mt-4 border border-[#7C3AED] shadow-lg self-center">
+                <div className="w-full max-w-2xl bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center mt-4 border border-[#4F46E5] shadow-lg self-center">
                   {gauerDescriptions[modalGauerIndex]}
                 </div>
               </div>
@@ -152,19 +152,19 @@ const Projects = () => {
               <div className="relative flex flex-row items-center justify-center w-full h-full">
                 {/* Absolutely positioned left description box */}
                 {gauerDescriptionPositions[modalGauerIndex] === 'left' && (
-                  <div className="absolute left-24 top-3/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#7C3AED] shadow-lg flex items-center justify-center">
+                  <div className="absolute left-24 top-3/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#4F46E5] shadow-lg flex items-center justify-center">
                     {gauerDescriptions[modalGauerIndex]}
                   </div>
                 )}
                 {/* Absolutely positioned right description box */}
                 {gauerDescriptionPositions[modalGauerIndex] === 'right' && (
-                  <div className="absolute right-24 top-1/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#7C3AED] shadow-lg flex items-center justify-center">
+                  <div className="absolute right-24 top-1/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#4F46E5] shadow-lg flex items-center justify-center">
                     {gauerDescriptions[modalGauerIndex]}
                   </div>
                 )}
                 {/* Absolutely positioned second text box for second photo */}
                 {modalGauerIndex === 1 && (
-                  <div className="absolute bottom-48 right-24 w-64 h-64 bg-[#4F46E5]/90 text-[#CBD5E1] rounded-lg p-3 text-sm border border-[#7C3AED] shadow-lg z-50 flex items-center justify-center">
+                  <div className="absolute bottom-48 right-24 w-64 h-64 bg-[#4F46E5]/90 text-[#CBD5E1] rounded-lg p-3 text-sm border border-[#4F46E5] shadow-lg z-50 flex items-center justify-center">
                     Secondary note or caption for the second photo goes here.
                   </div>
                 )}
