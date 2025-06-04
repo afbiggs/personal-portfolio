@@ -51,8 +51,8 @@ const CARD_GAP = 32; // px
 const VISIBLE_SIDE_CARDS = 2;
 
 const gauerDescriptions = [
-  'Filler description for Gauer photo 1.',
-  'Filler description for Gauer photo 2.',
+  'Initial testing of the control system and UI. The UI & server are hosted locally on a Raspberry Pi and being rendered in a browser window since changes will need to be made. This allows for easy navigation of different system settings within the Linux raspberry pi OS. The server communicates with an ESP32 for the backend control logic. ',
+  'Here is the main UI for the Gauer Machine which will auto load on boot through a systemd service script.',
   'Filler description for Gauer photo 3.',
   'Filler description for Gauer photo 4.',
   'Filler description for Gauer photo 5.',
@@ -149,43 +149,54 @@ const Projects = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-row items-center justify-center w-full h-full">
+              <div className="relative flex flex-row items-center justify-center w-full h-full">
+                {/* Absolutely positioned left description box */}
                 {gauerDescriptionPositions[modalGauerIndex] === 'left' && (
-                  <div className="w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center mr-6 border border-[#7C3AED] shadow-lg flex items-center justify-center">
+                  <div className="absolute left-24 top-3/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#7C3AED] shadow-lg flex items-center justify-center">
                     {gauerDescriptions[modalGauerIndex]}
                   </div>
                 )}
-                <button
-                  className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 mr-4"
-                  onClick={e => {
-                    e.stopPropagation();
-                    setModalGauerIndex((prev) => prev === 0 ? gauerImages.length - 1 : (prev! - 1));
-                    setModalImage(gauerImages[modalGauerIndex === 0 ? gauerImages.length - 1 : modalGauerIndex! - 1]);
-                  }}
-                >
-                  <FaChevronLeft size={32} />
-                </button>
-                <img
-                  src={modalImage}
-                  alt="Full Project Preview"
-                  className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED]"
-                  onClick={e => e.stopPropagation()}
-                />
-                <button
-                  className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 ml-4"
-                  onClick={e => {
-                    e.stopPropagation();
-                    setModalGauerIndex((prev) => prev === gauerImages.length - 1 ? 0 : (prev! + 1));
-                    setModalImage(gauerImages[modalGauerIndex === gauerImages.length - 1 ? 0 : modalGauerIndex! + 1]);
-                  }}
-                >
-                  <FaChevronRight size={32} />
-                </button>
+                {/* Absolutely positioned right description box */}
                 {gauerDescriptionPositions[modalGauerIndex] === 'right' && (
-                  <div className="w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center ml-6 border border-[#7C3AED] shadow-lg flex items-center justify-center">
+                  <div className="absolute right-24 top-1/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#7C3AED] shadow-lg flex items-center justify-center">
                     {gauerDescriptions[modalGauerIndex]}
                   </div>
                 )}
+                {/* Absolutely positioned second text box for second photo */}
+                {modalGauerIndex === 1 && (
+                  <div className="absolute bottom-48 right-24 w-64 h-64 bg-[#4F46E5]/90 text-[#CBD5E1] rounded-lg p-3 text-sm border border-[#7C3AED] shadow-lg z-50 flex items-center justify-center">
+                    Secondary note or caption for the second photo goes here.
+                  </div>
+                )}
+                {/* Centered image and arrows */}
+                <div className="flex flex-row items-center justify-center w-full">
+                  <button
+                    className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 mr-4"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setModalGauerIndex((prev) => prev === 0 ? gauerImages.length - 1 : (prev! - 1));
+                      setModalImage(gauerImages[modalGauerIndex === 0 ? gauerImages.length - 1 : modalGauerIndex! - 1]);
+                    }}
+                  >
+                    <FaChevronLeft size={32} />
+                  </button>
+                  <img
+                    src={modalImage}
+                    alt="Full Project Preview"
+                    className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED]"
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <button
+                    className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 ml-4"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setModalGauerIndex((prev) => prev === gauerImages.length - 1 ? 0 : (prev! + 1));
+                      setModalImage(gauerImages[modalGauerIndex === gauerImages.length - 1 ? 0 : modalGauerIndex! + 1]);
+                    }}
+                  >
+                    <FaChevronRight size={32} />
+                  </button>
+                </div>
               </div>
             )
           ) : (
