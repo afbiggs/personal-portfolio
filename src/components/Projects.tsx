@@ -50,6 +50,24 @@ const IMAGE_SIZE = 280; // px, larger image area
 const CARD_GAP = 32; // px
 const VISIBLE_SIDE_CARDS = 2;
 
+const gauerDescriptions = [
+  'Filler description for Gauer photo 1.',
+  'Filler description for Gauer photo 2.',
+  'Filler description for Gauer photo 3.',
+  'Filler description for Gauer photo 4.',
+  'Filler description for Gauer photo 5.',
+  'Filler description for Gauer photo 6.'
+];
+
+const gauerDescriptionPositions = [
+  'bottom', // photo 1
+  'left',   // photo 2
+  'right',  // photo 3
+  'bottom', // photo 4
+  'left',   // photo 5
+  'right',  // photo 6
+];
+
 const Projects = () => {
   const [modalImage, setModalImage] = useState<string | null>(null);
   const [modalGauerIndex, setModalGauerIndex] = useState<number | null>(null);
@@ -95,8 +113,82 @@ const Projects = () => {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={() => { setModalImage(null); setModalGauerIndex(null); }}
         >
-          {/* Gauer modal navigation */}
-          {modalGauerIndex !== null && (
+          {modalGauerIndex !== null ? (
+            gauerDescriptionPositions[modalGauerIndex] === 'bottom' ? (
+              <div className="flex flex-col items-center justify-center w-full h-full">
+                <div className="flex flex-row items-center justify-center w-full">
+                  <button
+                    className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 mr-4"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setModalGauerIndex((prev) => prev === 0 ? gauerImages.length - 1 : (prev! - 1));
+                      setModalImage(gauerImages[modalGauerIndex === 0 ? gauerImages.length - 1 : modalGauerIndex! - 1]);
+                    }}
+                  >
+                    <FaChevronLeft size={32} />
+                  </button>
+                  <img
+                    src={modalImage}
+                    alt="Full Project Preview"
+                    className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED]"
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <button
+                    className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 ml-4"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setModalGauerIndex((prev) => prev === gauerImages.length - 1 ? 0 : (prev! + 1));
+                      setModalImage(gauerImages[modalGauerIndex === gauerImages.length - 1 ? 0 : modalGauerIndex! + 1]);
+                    }}
+                  >
+                    <FaChevronRight size={32} />
+                  </button>
+                </div>
+                <div className="w-full max-w-2xl bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center mt-4 border border-[#7C3AED] shadow-lg self-center">
+                  {gauerDescriptions[modalGauerIndex]}
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-row items-center justify-center w-full h-full">
+                {gauerDescriptionPositions[modalGauerIndex] === 'left' && (
+                  <div className="w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center mr-6 border border-[#7C3AED] shadow-lg flex items-center justify-center">
+                    {gauerDescriptions[modalGauerIndex]}
+                  </div>
+                )}
+                <button
+                  className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 mr-4"
+                  onClick={e => {
+                    e.stopPropagation();
+                    setModalGauerIndex((prev) => prev === 0 ? gauerImages.length - 1 : (prev! - 1));
+                    setModalImage(gauerImages[modalGauerIndex === 0 ? gauerImages.length - 1 : modalGauerIndex! - 1]);
+                  }}
+                >
+                  <FaChevronLeft size={32} />
+                </button>
+                <img
+                  src={modalImage}
+                  alt="Full Project Preview"
+                  className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED]"
+                  onClick={e => e.stopPropagation()}
+                />
+                <button
+                  className="p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50 ml-4"
+                  onClick={e => {
+                    e.stopPropagation();
+                    setModalGauerIndex((prev) => prev === gauerImages.length - 1 ? 0 : (prev! + 1));
+                    setModalImage(gauerImages[modalGauerIndex === gauerImages.length - 1 ? 0 : modalGauerIndex! + 1]);
+                  }}
+                >
+                  <FaChevronRight size={32} />
+                </button>
+                {gauerDescriptionPositions[modalGauerIndex] === 'right' && (
+                  <div className="w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center ml-6 border border-[#7C3AED] shadow-lg flex items-center justify-center">
+                    {gauerDescriptions[modalGauerIndex]}
+                  </div>
+                )}
+              </div>
+            )
+          ) : (
             <>
               <button
                 className="absolute left-8 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#1E1B4B]/80 text-white hover:bg-[#4F46E5] z-50"
@@ -118,14 +210,14 @@ const Projects = () => {
               >
                 <FaChevronRight size={32} />
               </button>
+              <img
+                src={modalImage}
+                alt="Full Project Preview"
+                className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED] mb-4"
+                onClick={e => e.stopPropagation()}
+              />
             </>
           )}
-          <img
-            src={modalImage}
-            alt="Full Project Preview"
-            className="max-h-[80vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED]"
-            onClick={e => e.stopPropagation()}
-          />
         </div>
       )}
       <div className="container mx-auto px-4 py-32">
