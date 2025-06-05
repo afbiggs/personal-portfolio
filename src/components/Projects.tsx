@@ -51,11 +51,11 @@ const CARD_GAP = 32; // px
 const VISIBLE_SIDE_CARDS = 2;
 
 const gauerDescriptions = [
-  'Initial testing of the control system and UI. The UI & server are hosted locally on a Raspberry Pi and being rendered in a browser window since changes will need to be made. This allows for easy navigation of different system settings within the Linux raspberry pi OS. The server communicates with an ESP32 for the backend control logic. ',
-  'Here is the main UI for the Gauer Machine which will auto load on boot through a systemd service script.',
-  'Filler description for Gauer photo 3.',
-  'Filler description for Gauer photo 4.',
-  'Filler description for Gauer photo 5.',
+  'Initial testing of the control system and UI. The UI & server are hosted locally on a Raspberry Pi and being rendered in a browser window since changes will need to be made. This allows for easy navigation of different system settings within the Linux raspberry pi OS. The server communicates with an ESP32 through serial & WebSockets for the backend control logic. ',
+  'Here is the main UI for the Gauer Machine which will auto load on boot through a systemd service script. The UI runs full time in kiosk mode. I set up SSH to allow for remote access to the machine through a secure VPN so I can make changes and updates remotely if needed. ',
+  'Shown here are the internal electronics of the control box. The Raspberry Pi, which is absent from this photo, sits in the top left corner and the ESP32 sits directly below it and connects to relays and eventually to the corresponding components on the Gauer itself. All of the electronics and comms are electrically & optically isolated to reduce noise and interference.',
+  'This is is the rear of the custom control box which sits on a custom stand. Whips are connected from the control box to the Gauer itself.',
+  'Front view of the Gauer Machine which was originally built in the late 60s. On the far left material is shown being fed through the machine. The cream colored box in the was the original control box which is where we tapped into the existing wiring to connect the new control system.',
   'Filler description for Gauer photo 6.'
 ];
 
@@ -158,14 +158,14 @@ const Projects = () => {
                 )}
                 {/* Absolutely positioned right description box */}
                 {gauerDescriptionPositions[modalGauerIndex] === 'right' && (
-                  <div className="absolute right-24 top-1/2 -translate-y-1/2 w-64 h-64 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#4F46E5] shadow-lg flex items-center justify-center">
+                  <div className="absolute right-24 top-1/2 -translate-y-1/2 w-72 h-74 bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center border border-[#4F46E5] shadow-lg flex items-center justify-center">
                     {gauerDescriptions[modalGauerIndex]}
                   </div>
                 )}
                 {/* Absolutely positioned second text box for second photo */}
                 {modalGauerIndex === 1 && (
-                  <div className="absolute bottom-48 right-24 w-64 h-64 bg-[#4F46E5]/90 text-[#CBD5E1] rounded-lg p-3 text-sm border border-[#4F46E5] shadow-lg z-50 flex items-center justify-center">
-                    Secondary note or caption for the second photo goes here.
+                  <div className="absolute bottom-48 right-24 w-64 h-80 bg-[#4F46E5]/90 text-[#CBD5E1] rounded-lg p-3 text-sm border border-[#4F46E5] shadow-lg z-50 flex items-center justify-center">
+                    The UI and navigation is intentionally designed to be simple and easy to use. The user initially puts in the desired cut length & quantity. After pressing start, the machine will feed the material where an optical encoder measures the amount of material and then stops when the desired length is reached and then the cut is made. 
                   </div>
                 )}
                 {/* Centered image and arrows */}
