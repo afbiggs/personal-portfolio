@@ -2,7 +2,17 @@ import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
-const projects = [
+type Project = {
+  title: string;
+  description: string;
+  image?: string;
+  images?: string[];
+  technologies: string[];
+  github?: string;
+  live?: string | null;
+}
+
+const projects: Project[] = [
   {
     title: "Tennis Ball Machine",
     description: "A self-built, portable tennis ball machine designed to deliver customizable shots with adjustable speed, spin, and feeding rate. Combines mechanical design, electronics, and programming for an affordable alternative to commercial machines.",
@@ -26,20 +36,20 @@ const projects = [
     live: undefined
   },
   {
+    title: "Readme Generator",
+    description: "A professional ReadME generator that allows users to answer prompted questions and receive an auto-generated ReadME file. Built with Node.js, this tool streamlines documentation creation for developers, ensuring consistent and comprehensive project documentation.",
+    image: "/images/coming-soon-neon-lights.jpg",
+    technologies: ["JavaScript", "Node.js", "Inquirer.js", "File System"],
+    github: "https://github.com/afbiggs/Readme-Generator",
+    live: null
+  },
+  {
     title: "Tattoo Artist Portfolio & Booking (Coming Soon)",
     description: "A custom website for a professional tattoo artist, featuring a modern portfolio gallery, integrated scheduling/booking system, and client management tools. Built with a focus on user experience, mobile responsiveness, and seamless appointment handling. Planned tech stack includes React, Node.js, and a cloud database.",
     image: "/images/coming-soon-neon-lights.jpg",
     technologies: ["React", "Node.js", "Booking System", "Responsive Design", "Cloud Database"],
     github: undefined,
     live: undefined
-  },
-  {
-    title: "Project One",
-    description: "A full-stack web application built with React and Node.js",
-    image: "https://via.placeholder.com/600x400",
-    technologies: ["React", "Node.js", "MongoDB", "Express"],
-    github: "https://github.com/yourusername/project-one",
-    live: "https://project-one.com"
   }
 ]
 
