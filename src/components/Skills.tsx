@@ -51,10 +51,10 @@ const Skills = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="skills" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="skills" className="py-24 mb-56 scroll-mt-[10vh]">
+      <div className="container mx-auto px-4 sm:px-8 xl:px-24 max-w-7xl">
         <h2 className="text-4xl font-bold text-white mb-12 text-center">Skills</h2>
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-7xl mx-auto space-y-6">
           {skillCategories.map((cat, idx) => (
             <motion.div
               key={cat.label}

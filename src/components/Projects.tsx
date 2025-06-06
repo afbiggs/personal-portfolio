@@ -241,13 +241,13 @@ const Projects = () => {
           )}
         </div>
       )}
-      <div className="container mx-auto px-4 py-32">
+      <div className="container mx-auto px-4 sm:px-8 xl:px-24 py-24 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="max-w-6xl mx-auto"
+          className="max-w-7xl mx-auto"
         >
           <h2 className="text-4xl font-bold text-white mb-12 text-center">Featured Projects</h2>
           <div
