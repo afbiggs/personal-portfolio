@@ -17,7 +17,7 @@ const projects: Project[] = [
     title: "Tennis Ball Machine",
     description: "A self-built, portable tennis ball machine designed to deliver customizable shots with adjustable speed, spin, and feeding rate. Combines mechanical design, electronics, and programming for an affordable alternative to commercial machines.",
     image: "/images/tennis-ball-machine.gif",
-    technologies: ["C++", "Arduino", "Electronics", "Mechanical Design"],
+    technologies: ["C++", "Arduino", "Electronics", "Mechanical Design", "Embedded Systems Development", ],
     github: "https://github.com/afbiggs/Tennis-Ball-Machine",
     live: null
   },
@@ -31,7 +31,7 @@ const projects: Project[] = [
       "/images/rear.jpeg",
       "/images/gauer-machine.jpeg",
     ],
-    technologies: ["React", "Node.js", "C++", "ESP32", "Raspberry Pi", "WebSockets", "Serial Communication", "Linux"],
+    technologies: ["React", "Node.js", "C++", "ESP32", "Raspberry Pi", "UI/UX Design", "WebSockets", "Serial Communication", "Tailscale VPN", "Linux", "System Administration", "Electrical Engineering", "Embedded Systems Development"],
     github: undefined,
     live: undefined
   },
