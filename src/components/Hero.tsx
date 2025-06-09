@@ -1,29 +1,10 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { useRef, useState, useEffect } from 'react'
+// import { useMotionValue, useSpring } from 'framer-motion'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+// import { useRef, useState } from 'react'
 import profileImage from '../assets/images/profile-image.jpeg'
-import { AnimatePresence } from 'framer-motion'
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
 
 const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  // Mouse movement tracking for 3D effect
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const springConfig = { damping: 20, stiffness: 300 }
-  const springX = useSpring(mouseX, springConfig)
-  const springY = useSpring(mouseY, springConfig)
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { clientX, clientY } = e
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
-    const x = (clientX - left) / width - 0.5
-    const y = (clientY - top) / height - 0.5
-    mouseX.set(x * 20)
-    mouseY.set(y * 20)
-  }
-
   // Auto-typing subtitle effect
   const titles = [
     "Full Stack Developer",
@@ -38,9 +19,6 @@ const Hero = () => {
     deleteSpeed: 40,
     delaySpeed: 2000,
   });
-
-  // Floating elements animation
-  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-transparent px-2 sm:px-6 md:px-12">

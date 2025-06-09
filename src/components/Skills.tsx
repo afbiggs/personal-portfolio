@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDocker } from 'react-icons/fa';
-import { SiTypescript, SiTailwindcss, SiMongodb } from 'react-icons/si';
+// import { FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDocker } from 'react-icons/fa';
+// import { SiTypescript, SiTailwindcss, SiMongodb } from 'react-icons/si';
 
-const skills = [
-  { name: 'React', icon: FaReact, color: 'text-blue-500' },
-  { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-600' },
-  { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500' },
-  { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
-  { name: 'SQL', icon: FaDatabase, color: 'text-blue-400' },
-  { name: 'Git', icon: FaGitAlt, color: 'text-orange-500' },
-  { name: 'Docker', icon: FaDocker, color: 'text-blue-600' },
-  { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-cyan-500' },
-];
+// const skills = [
+//   { name: 'React', icon: FaReact, color: 'text-blue-500' },
+//   { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-600' },
+//   { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500' },
+//   { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
+//   { name: 'SQL', icon: FaDatabase, color: 'text-blue-400' },
+//   { name: 'Git', icon: FaGitAlt, color: 'text-orange-500' },
+//   { name: 'Docker', icon: FaDocker, color: 'text-blue-600' },
+//   { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-cyan-500' },
+// ];
 
 const skillCategories = [
   {

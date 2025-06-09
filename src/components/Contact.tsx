@@ -2,18 +2,6 @@ import { motion } from 'framer-motion'
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
 import { useState } from 'react'
 
-const ContactInfo = ({ icon: Icon, title, content }: { icon: any; title: string; content: string }) => (
-  <div className="flex items-center space-x-4">
-    <div className="p-3 bg-primary-500 text-white rounded-full">
-      <Icon />
-    </div>
-    <div>
-      <p className="font-bold">{title}</p>
-      <p className="text-gray-600">{content}</p>
-    </div>
-  </div>
-)
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
