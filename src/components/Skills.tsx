@@ -51,10 +51,10 @@ const Skills = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="skills" className="py-24 mb-56 scroll-mt-[2vh]">
-      <div className="container mx-auto px-4 sm:px-8 xl:px-24 max-w-7xl">
+    <section id="skills" className="py-24 mb-56 scroll-mt-[8vh]">
+      <div className="container mx-auto px-4 sm:px-8 xl:px-24 max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
         <h2 className="text-4xl font-bold text-white mb-12 text-center">Skills</h2>
-        <div className="max-w-7xl mx-auto space-y-6">
+        <div className="w-full mx-auto space-y-4">
           {skillCategories.map((cat, idx) => (
             <motion.div
               key={cat.label}
@@ -65,10 +65,10 @@ const Skills = () => {
                   : `0 0 8px 0 ${cat.color}33`,
                 borderColor: cat.color,
               }}
-              className={`rounded-xl border-2 bg-[#18192A]/80 backdrop-blur-md transition-all duration-300 overflow-hidden`}
+              className={`rounded-lg border-2 bg-[#18192A]/80 backdrop-blur-md transition-all duration-300 overflow-hidden`}
             >
               <button
-                className="w-full flex justify-between items-center px-6 py-5 text-left text-xl font-semibold text-white tracking-wide focus:outline-none group"
+                className="w-full flex justify-between items-center px-4 py-5 text-left text-lg font-semibold text-white tracking-wide focus:outline-none group"
                 style={{
                   textShadow: openIndex === idx ? `0 0 8px ${cat.color}` : undefined,
                 }}
@@ -77,7 +77,7 @@ const Skills = () => {
                 <span className={openIndex === idx ? 'animate-glitch' : ''}>{cat.label}</span>
                 <motion.span
                   animate={{ rotate: openIndex === idx ? 90 : 0 }}
-                  className="ml-2 text-2xl text-[#CBD5E1] group-hover:text-white transition-colors"
+                  className="ml-2 text-xl text-[#CBD5E1] group-hover:text-white transition-colors"
                 >
                   ▶
                 </motion.span>
@@ -89,16 +89,18 @@ const Skills = () => {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="px-8 pb-6"
+                    className="px-4 pb-4"
                   >
-                    {cat.items.map((item) => (
-                      <li
-                        key={item}
-                        className="text-lg text-[#CBD5E1] py-1 border-l-4 border-transparent hover:border-[#7C3AED] pl-4 transition-all duration-200"
-                      >
-                        {item}
-                      </li>
-                    ))}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 gap-y-3 w-full">
+                      {cat.items.map((item) => (
+                        <li
+                          key={item}
+                          className="text-sm text-[#CBD5E1] py-1.5 px-3 rounded-md bg-[#232046]/50 hover:bg-[#232046] hover:text-white border border-transparent hover:border-[#7C3AED] transition-all duration-200"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </div>
                   </motion.ul>
                 )}
               </AnimatePresence>
