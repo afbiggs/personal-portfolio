@@ -24,21 +24,20 @@ const Hero = () => {
     mouseY.set(y * 20)
   }
 
-  // Auto-changing text effect
-  const [currentTitle, setCurrentTitle] = useState(0)
+  // Auto-typing subtitle effect
   const titles = [
     "Full Stack Developer",
     "Web Developer",
-    "Embedded Systems Engineer",
-    "Cybersecurity Enthusiast",
-  ]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTitle((prev) => (prev + 1) % titles.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
+    "UI/UX Designer",
+    "Problem Solver"
+  ];
+  const [typedTitle] = useTypewriter({
+    words: titles,
+    loop: true,
+    typeSpeed: 60,
+    deleteSpeed: 40,
+    delaySpeed: 2000,
+  });
 
   // Floating elements animation
   const [isHovered, setIsHovered] = useState(false)
@@ -67,7 +66,7 @@ const Hero = () => {
             </span>
           </h1>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono text-[#7C3AED] mb-6">
-            <span>{useTypewriter({ words: [titles[currentTitle]], loop: 0, typeSpeed: 60, deleteSpeed: 0, delaySpeed: 2000 })[0]}</span>
+            <span>{typedTitle}</span>
             <Cursor cursorColor="#7C3AED" />
           </h2>
           <p className="text-[#CBD5E1] text-base sm:text-lg lg:text-xl leading-relaxed mb-8">
