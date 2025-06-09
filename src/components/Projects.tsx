@@ -55,7 +55,7 @@ const projects: Project[] = [
 
 const projectColors = ['#4F46E5', '#7C3AED', '#EC4899'];
 
-const CARD_SIZE = 660; // px, much larger square
+const CARD_SIZE = 600; // px, wider cards for better readability
 const IMAGE_SIZE = 280; // px, larger image area
 const CARD_GAP = 32; // px
 const VISIBLE_SIDE_CARDS = 2;
@@ -116,7 +116,7 @@ const Projects = () => {
   }, [gauerImages.length, gauerPaused]);
 
   return (
-    <section id="projects" className="relative min-h-screen overflow-hidden">
+    <section id="projects" className="relative min-h-[95vh] overflow-hidden scroll-mt-[10vh] flex flex-col items-center justify-center">
       {/* Modal for full image */}
       {modalImage && (
         <div
@@ -241,18 +241,18 @@ const Projects = () => {
           )}
         </div>
       )}
-      <div className="container mx-auto px-4 sm:px-8 xl:px-24 py-24 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-8 xl:px-24 py-16 sm:py-20 max-w-6xl w-full mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="max-w-7xl mx-auto"
+          className="max-w-6xl w-full mx-auto"
         >
           <h2 className="text-4xl font-bold text-white mb-12 text-center">Featured Projects</h2>
           <div
-            className="relative flex items-center justify-center"
-            style={{ height: CARD_SIZE + 40 }} // add a little extra for buttons
+            className="relative flex items-center justify-center w-full overflow-hidden"
+            style={{ minHeight: 400 }}
           >
             {/* Navigation Buttons */}
             <button
@@ -269,8 +269,8 @@ const Projects = () => {
             </button>
             {/* Carousel Wrapper */}
             <div
-              className="overflow-x-hidden w-full flex items-center justify-center"
-              style={{ maxWidth: CARD_SIZE + 2 * (CARD_GAP + CARD_SIZE * VISIBLE_SIDE_CARDS) }}
+              className="flex items-center justify-center w-full"
+              style={{ minWidth: 0 }}
             >
               <motion.div
                 className="flex items-center"
@@ -302,8 +302,10 @@ const Projects = () => {
                     <motion.div
                       key={project.title}
                       style={{
-                        width: CARD_SIZE,
-                        height: CARD_SIZE,
+                        minHeight: 400,
+                        width: '100%',
+                        maxWidth: 600,
+                        maxHeight: '70vh',
                         flexShrink: 0,
                         borderColor: projectColors[index % projectColors.length],
                         boxShadow: `0 0 24px 2px ${projectColors[index % projectColors.length]}55, 0 0 0 2px ${projectColors[index % projectColors.length]}`,
@@ -312,11 +314,11 @@ const Projects = () => {
                         zIndex: 10 - Math.abs(offset),
                         transition: 'all 0.5s cubic-bezier(0.4,0,0.2,1)'
                       }}
-                      className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300 border-2 flex flex-col"
+                      className="bg-[#1E1B4B]/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300 border-2 flex flex-col w-full max-w-2xl"
                     >
                       <div
                         className={`relative w-full flex items-center justify-center bg-black${isTattooCard ? '' : ''}`}
-                        style={{ height: IMAGE_SIZE, minHeight: IMAGE_SIZE, maxHeight: IMAGE_SIZE }}
+                        style={{ height: IMAGE_SIZE, minHeight: IMAGE_SIZE, maxHeight: '40vh' }}
                         onClick={() => {
                           if (project.title === 'Tennis Ball Machine') {
                             if (typeof project.image === 'string') setModalImage(project.image);

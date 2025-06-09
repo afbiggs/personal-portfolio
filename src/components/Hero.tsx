@@ -29,14 +29,14 @@ const Hero = () => {
   const titles = [
     "Full Stack Developer",
     "Web Developer",
-    "UI/UX Designer",
-    "Problem Solver"
+    "Embedded Systems Engineer",
+    "Cybersecurity Enthusiast",
   ]
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTitle((prev) => (prev + 1) % titles.length)
-    }, 3000)
+    }, 5000)
     return () => clearInterval(interval)
   }, [])
 
@@ -44,9 +44,9 @@ const Hero = () => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <section className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center bg-transparent">
-      {/* Terminal Window Frame */}
-      <div className="relative w-full max-w-3xl mx-auto rounded-2xl bg-[#18192A]/80 border-2 border-[#7C3AED] shadow-2xl backdrop-blur-lg px-8 py-10 mt-16 mb-8"
+    <section className="relative min-h-screen flex items-center justify-center bg-transparent px-2 sm:px-6 md:px-12">
+      {/* Terminal Window Frame with Integrated Profile Image */}
+      <div className="relative w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto rounded-2xl bg-[#18192A]/80 border-2 border-[#7C3AED] shadow-2xl backdrop-blur-lg px-4 sm:px-10 lg:px-16 py-8 sm:py-12 lg:py-16 flex flex-col md:flex-row items-center md:items-start gap-8"
         style={{ boxShadow: '0 0 40px 0 #7C3AED55, 0 0 0 2px #4F46E5' }}>
         {/* Faux window controls */}
         <div className="absolute left-0 top-0 flex space-x-2 p-4">
@@ -54,85 +54,68 @@ const Hero = () => {
           <span className="w-3 h-3 rounded-full bg-[#FBBF24] inline-block shadow-md" />
           <span className="w-3 h-3 rounded-full bg-[#22D3EE] inline-block shadow-md" />
         </div>
-        {/* Terminal prompt */}
-        <div className="mb-6 text-[#CBD5E1] font-mono text-sm opacity-70">[~/alexbiggs]$</div>
-        {/* Typing animation for name/title */}
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 font-mono">
-          <span>
-            {/* Typing animation */}
-            <span className="text-[#7C3AED]">{`>`} </span>
+        {/* Left: Terminal Content */}
+        <div className="flex-1 min-w-0">
+          <div className="mb-6 text-[#CBD5E1] font-mono text-sm opacity-70">[~/alexbiggs]$</div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-mono">
             <span>
-              <span>{useTypewriter({ words: ['Alex Biggs'], loop: 1, typeSpeed: 80, deleteSpeed: 0, delaySpeed: 1000 })[0]}</span>
-              <Cursor cursorColor="#7C3AED" />
+              <span className="text-[#7C3AED]">{`>`} </span>
+              <span>
+                <span>{useTypewriter({ words: ['Alex Biggs'], loop: 1, typeSpeed: 80, deleteSpeed: 0, delaySpeed: 1000 })[0]}</span>
+                <Cursor cursorColor="#7C3AED" />
+              </span>
             </span>
-          </span>
-        </h1>
-        <h2 className="text-2xl md:text-3xl font-mono text-[#7C3AED] mb-6">
-          <span>{useTypewriter({ words: [titles[currentTitle]], loop: 0, typeSpeed: 60, deleteSpeed: 0, delaySpeed: 2000 })[0]}</span>
-          <Cursor cursorColor="#7C3AED" />
-        </h2>
-        <p className="text-[#CBD5E1] text-lg leading-relaxed mb-8">
-          Specializing in web development and embedded systems. <br />
-          Building solutions that solve real problems.
-        </p>
-        <div className="flex flex-wrap gap-6 mb-8">
-          <a
-            href="#contact"
-            className="group relative px-8 py-4 bg-[#4F46E5] text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform"
-          >
-            <span className="relative z-10">Contact Me</span>
-          </a>
-          <a
-            href="#projects"
-            className="group relative px-8 py-4 bg-transparent text-[#CBD5E1] font-semibold rounded-lg border-2 border-[#4F46E5] overflow-hidden hover:scale-105 transition-transform"
-          >
-            <span className="relative z-10">See My Work</span>
-          </a>
-        </div>
-        <div className="flex gap-8">
-          {[
-            { icon: FaGithub, href: "https://github.com/yourusername" },
-            { icon: FaLinkedin, href: "https://linkedin.com/in/yourusername" },
-            { icon: FaTwitter, href: "https://twitter.com/yourusername" }
-          ].map((social, index) => (
+          </h1>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono text-[#7C3AED] mb-6">
+            <span>{useTypewriter({ words: [titles[currentTitle]], loop: 0, typeSpeed: 60, deleteSpeed: 0, delaySpeed: 2000 })[0]}</span>
+            <Cursor cursorColor="#7C3AED" />
+          </h2>
+          <p className="text-[#CBD5E1] text-base sm:text-lg lg:text-xl leading-relaxed mb-8">
+            Specializing in web development and embedded systems. <br />
+            Building solutions that solve real problems.
+          </p>
+          <div className="flex flex-wrap gap-6 mb-8">
             <a
-              key={index}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#CBD5E1] hover:text-[#4F46E5] transition-colors text-3xl"
+              href="#contact"
+              className="group relative px-8 py-4 bg-[#4F46E5] text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform"
             >
-              <social.icon />
+              <span className="relative z-10">Contact Me</span>
             </a>
-          ))}
+            <a
+              href="#projects"
+              className="group relative px-8 py-4 bg-transparent text-[#CBD5E1] font-semibold rounded-lg border-2 border-[#4F46E5] overflow-hidden hover:scale-105 transition-transform"
+            >
+              <span className="relative z-10">See My Work</span>
+            </a>
+          </div>
+          <div className="flex gap-8">
+            {[
+              { icon: FaGithub, href: "https://github.com/afbiggs" },
+              { icon: FaLinkedin, href: "https://linkedin.com/in/alex-biggs-2a8a0194" },
+              // { icon: FaTwitter, href: "https://twitter.com/yourusername" }
+            ].map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#CBD5E1] hover:text-[#4F46E5] transition-colors text-3xl"
+              >
+                <social.icon />
+              </a>
+            ))}
+          </div>
+        </div>
+        {/* Right: Profile Image */}
+        <div className="flex-shrink-0 flex justify-center items-center mt-8 md:mt-0">
+          <img
+            src={profileImage}
+            alt="Alex Biggs"
+            className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full object-cover border-4 border-[#7C3AED] shadow-lg bg-[#232046]"
+            style={{ boxShadow: '0 0 24px 0 #7C3AED55, 0 0 0 4px #232046' }}
+          />
         </div>
       </div>
-
-      {/* Floating Hologram Profile Image */}
-      <motion.div
-        className="relative group"
-        animate={{ y: [0, -10, 0, 10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        {/* Neon Glow */}
-        <motion.div
-          className="absolute -inset-6 rounded-full blur-2xl"
-          style={{ background: 'conic-gradient(from 0deg, #4F46E5, #7C3AED, #EC4899, #4F46E5)' }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-        />
-        {/* Profile Image */}
-        <img
-          src={profileImage}
-          alt="Alex Biggs"
-          className="w-56 h-56 md:w-72 md:h-72 rounded-full object-cover border-4 border-[#7C3AED] shadow-xl transition-transform duration-300 group-hover:scale-105 relative z-10"
-          style={{ boxShadow: '0 0 40px 0 #7C3AED99, 0 0 0 8px #232046' }}
-        />
-        {/* Scanline effect overlay */}
-        <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-30">
-          <div className="w-full h-full bg-gradient-to-t from-transparent via-white/10 to-transparent animate-scanline" />
-        </div>
-      </motion.div>
     </section>
   )
 }
