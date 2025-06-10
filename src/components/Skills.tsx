@@ -120,7 +120,7 @@
 
 // export default Skills; 
 
-import React from 'react';
+// import React from 'react';
 
 const skillCategories = [
   {
