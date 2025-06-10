@@ -8,12 +8,30 @@ const Contact = () => {
     email: '',
     message: ''
   })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    alert('Thank you for your message! I will get back to you soon.')
-    setFormData({ name: '', email: '', message: '' })
-  }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      }),
+    });
+    // Show success or error message to the user
+    if (res.ok) {
+      alert('Thank you for your message! I will get back to you soon.');
+      setFormData({ name: '', email: '', message: '' });
+    } else {
+      alert('There was an error sending your message. Please try again later.');
+    }
+  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   alert('Thank you for your message! I will get back to you soon.')
+  //   setFormData({ name: '', email: '', message: '' })
+  // }
 
   return (
     <section id="contact" className="py-24">
