@@ -94,23 +94,12 @@ const About = () => {
       {/* Removed local background */}
       <div className="container mx-auto px-4 sm:px-8 xl:px-24 py-24 max-w-7xl">
         <div className="max-w-7xl mx-auto w-full">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-12 relative text-center"
-          >
-            <span className="relative inline-block">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">
+            <span className="block relative w-fit mx-auto">
               About Me
-              <motion.div
-                className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 w-full bg-gradient-to-r from-[#4F46E5] via-[#7C3AED] to-[#4F46E5]"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-              />
+              <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
             </span>
-          </motion.h2>
+          </h2>
 
           {/* Interactive Story Flow */}
           <div className="relative">

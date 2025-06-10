@@ -116,7 +116,7 @@ const Projects = () => {
   }, [gauerImages.length, gauerPaused]);
 
   return (
-    <section id="projects" className="relative min-h-[95vh] overflow-hidden scroll-mt-[10vh] flex flex-col items-center justify-center">
+    <section id="projects" className="relative min-h-[95vh] overflow-hidden scroll-mt-[10vh] flex flex-col items-center justify-center mb-32">
       {/* Modal for full image */}
       {modalImage && (
         <div
@@ -249,7 +249,12 @@ const Projects = () => {
           viewport={{ once: true }}
           className="max-w-6xl w-full mx-auto"
         >
-          <h2 className="text-4xl font-bold text-white mb-12 text-center">Featured Projects</h2>
+          <h2 className="text-4xl font-bold text-white mb-12 text-center">
+            <span className="block relative w-fit mx-auto">
+              Featured Projects
+              <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
+            </span>
+          </h2>
           <div
             className="relative flex items-center justify-center w-full overflow-hidden"
             style={{ minHeight: 400 }}

@@ -25,7 +25,12 @@ const Contact = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-4xl font-bold text-white mb-12 text-center">Get In Touch</h2>
+          <h2 className="text-4xl font-bold text-white mb-12 text-center">
+            <span className="block relative w-fit mx-auto">
+              Get In Touch
+              <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
+            </span>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
