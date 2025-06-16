@@ -67,6 +67,7 @@ const Projects = () => {
   const [modalIndex, setModalIndex] = useState<number>(0);
   const [slideshowIndex, setSlideshowIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
   const gauerImages = projects[1].images || [];
 
@@ -89,81 +90,99 @@ const Projects = () => {
       >
         <span className="block relative w-fit mx-auto">
           Featured Projects
-          <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
+          <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]" />
         </span>
       </motion.h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            className="bg-gradient-to-br from-[#1c1c2b] to-[#12121a] rounded-2xl p-6 border border-purple-600 shadow-lg"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div
-              className="relative cursor-pointer"
-              onClick={() => {
-                if (project.images) {
-                  setModalImage(project.images[slideshowIndex]);
-                  setModalIndex(slideshowIndex);
-                } else if (project.image) {
-                  setModalImage(project.image);
-                }
-              }}
-              onMouseEnter={() => project.images && setIsPaused(true)}
-              onMouseLeave={() => project.images && setIsPaused(false)}
+        {projects.map((project, index) => {
+          const isExpanded = expandedCard === index;
+          const shouldTruncate = !isExpanded && project.description.length > 250;
+          const previewText = shouldTruncate
+            ? project.description.slice(0, 250) + '...'
+            : project.description;
+
+          return (
+            <motion.div
+              key={index}
+              className="bg-gradient-to-br from-[#1c1c2b] to-[#12121a] rounded-2xl p-6 border border-purple-600 shadow-lg flex flex-col justify-between"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
-              {project.images ? (
-                <img
-                  src={project.images[slideshowIndex]}
-                  alt={project.title}
-                  className="rounded-lg w-full h-60 object-contain mb-4 bg-black"
-                />
-              ) : (
-                project.image && (
+              <div
+                className="relative cursor-pointer"
+                onClick={() => {
+                  if (project.images) {
+                    setModalImage(project.images[slideshowIndex]);
+                    setModalIndex(slideshowIndex);
+                  } else if (project.image) {
+                    setModalImage(project.image);
+                  }
+                }}
+                onMouseEnter={() => project.images && setIsPaused(true)}
+                onMouseLeave={() => project.images && setIsPaused(false)}
+              >
+                {project.images ? (
                   <img
-                    src={project.image}
+                    src={project.images[slideshowIndex]}
                     alt={project.title}
                     className="rounded-lg w-full h-60 object-contain mb-4 bg-black"
                   />
-                )
-              )}
-              <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">
-                Click to enlarge
-              </span>
-            </div>
-
-            <h3 className="text-xl font-semibold text-purple-400 mb-2">{project.title}</h3>
-            <p className="text-sm text-white mb-4 whitespace-pre-line break-words">{project.description}</p>
-
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.technologies.map((tech, i) => (
-                <span
-                  key={i}
-                  className="bg-purple-800/30 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-700"
-                >
-                  {tech}
+                ) : (
+                  project.image && (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="rounded-lg w-full h-60 object-contain mb-4 bg-black"
+                    />
+                  )
+                )}
+                <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">
+                  Click to enlarge
                 </span>
-              ))}
-            </div>
+              </div>
 
-            <div className="flex gap-4">
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm flex items-center gap-1">
-                  <FaGithub /> Code
-                </a>
-              )}
-              {project.live && (
-                <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:underline text-sm flex items-center gap-1">
-                  <FaExternalLinkAlt /> Live Demo
-                </a>
-              )}
-            </div>
-          </motion.div>
-        ))}
+              <h3 className="text-xl font-semibold text-purple-400 mb-2">{project.title}</h3>
+              <p className="text-sm text-white mb-2 whitespace-pre-line break-words">
+                {previewText}
+                {project.description.length > 250 && (
+                  <button
+                    onClick={() => setExpandedCard(isExpanded ? null : index)}
+                    className="ml-1 text-purple-400 hover:text-purple-300 underline text-xs"
+                  >
+                    {isExpanded ? 'Show Less' : 'Read More'}
+                  </button>
+                )}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="bg-purple-800/30 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-700"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex gap-4 mt-auto">
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm flex items-center gap-1">
+                    <FaGithub /> Code
+                  </a>
+                )}
+                {project.live && (
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:underline text-sm flex items-center gap-1">
+                    <FaExternalLinkAlt /> Live Demo
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       {modalImage && (
@@ -187,7 +206,6 @@ const Projects = () => {
 };
 
 export default Projects;
-
 
 
 
