@@ -37,6 +37,14 @@ const projects: Project[] = [
     live: undefined
   },
   {
+    title: "Raspberry Pi Home Lab, VPN Server, & NAS",
+    description: "Designed and deployed a self-hosted Raspberry Pi home server for secure remote access, DNS-level ad blocking, private networking, and NAS functionality. Configured WireGuard VPN with full-tunnel routing, integrated Pi-hole for DNS filtering, and set up DuckDNS for dynamic DNS. Secured the system using SSH key authentication and enabled headless NVMe booting. Implemented network-attached storage (NAS) features using Samba and external SSDs. This solution enables me to remotely manage devices on my home network, access self-hosted services, store files, and maintain control over my digital environment—perfect for demonstrating infrastructure knowledge and practical Linux skills.",
+    image: "/images/raspberry-pi-lab.jpg",
+    technologies: ["Linux", "Raspberry Pi", "WireGuard VPN", "Pi-hole", "DuckDNS", "Networking", "System Administration", "Security", "NVMe", "SSH", "Headless Boot"],
+    github: undefined,
+    live: null
+  },
+  {
     title: "Readme Generator",
     description: "A professional ReadME generator that allows users to answer prompted questions and receive an auto-generated ReadME file...",
     image: "/images/coming-soon-neon-lights.jpg",
@@ -54,22 +62,39 @@ const projects: Project[] = [
   }
 ];
 
-const gauerDescriptions = [
-  'Initial testing of the control system and UI... ',
-  'Here is the main UI for the Gauer Machine...',
-  'Shown here are the internal electronics...',
-  'This is the rear of the custom control box...',
-  'Front view of the Gauer Machine...'
-];
+const useTruncatedDescriptions = (maxLength = 250) => {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const getDescription = (desc: string, index: number) => {
+    const isExpanded = expandedIndex === index;
+    if (isExpanded || desc.length <= maxLength) return desc;
+    return desc.slice(0, maxLength) + '...';
+  };
+
+  const getToggle = (desc: string, index: number) => {
+    if (desc.length <= maxLength) return null;
+    const isExpanded = expandedIndex === index;
+    return (
+      <button
+        onClick={() => setExpandedIndex(isExpanded ? null : index)}
+        className="ml-1 text-purple-400 hover:text-purple-300 underline text-xs"
+      >
+        {isExpanded ? 'Show Less' : 'Read More'}
+      </button>
+    );
+  };
+
+  return { getDescription, getToggle };
+};
 
 const Projects = () => {
   const [modalImage, setModalImage] = useState<string | null>(null);
   const [modalIndex, setModalIndex] = useState<number>(0);
   const [slideshowIndex, setSlideshowIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
   const gauerImages = projects[1].images || [];
+  const { getDescription, getToggle } = useTruncatedDescriptions();
 
   useEffect(() => {
     if (isPaused) return;
@@ -90,114 +115,125 @@ const Projects = () => {
       >
         <span className="block relative w-fit mx-auto">
           Featured Projects
-          <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]" />
+          <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
         </span>
       </motion.h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => {
-          const isExpanded = expandedCard === index;
-          const shouldTruncate = !isExpanded && project.description.length > 250;
-          const previewText = shouldTruncate
-            ? project.description.slice(0, 250) + '...'
-            : project.description;
-
-          return (
-            <motion.div
-              key={index}
-              className="bg-gradient-to-br from-[#1c1c2b] to-[#12121a] rounded-2xl p-6 border border-purple-600 shadow-lg flex flex-col justify-between"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div
-                className="relative cursor-pointer"
-                onClick={() => {
-                  if (project.images) {
-                    setModalImage(project.images[slideshowIndex]);
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            className="bg-gradient-to-br from-[#1c1c2b] to-[#12121a] rounded-2xl p-6 border border-purple-600 shadow-lg"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative">
+              {project.images ? (
+                <img
+                  src={project.images[slideshowIndex]}
+                  alt={project.title}
+                  className="rounded-lg w-full h-60 object-contain mb-4 cursor-pointer bg-black"
+                  onClick={() => {
+                    setModalImage(project.images![slideshowIndex]);
                     setModalIndex(slideshowIndex);
-                  } else if (project.image) {
-                    setModalImage(project.image);
-                  }
-                }}
-                onMouseEnter={() => project.images && setIsPaused(true)}
-                onMouseLeave={() => project.images && setIsPaused(false)}
-              >
-                {project.images ? (
+                  }}
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                />
+              ) : (
+                project.image && (
                   <img
-                    src={project.images[slideshowIndex]}
+                    src={project.image}
                     alt={project.title}
-                    className="rounded-lg w-full h-60 object-contain mb-4 bg-black"
+                    className="rounded-lg w-full h-60 object-contain mb-4 cursor-pointer bg-black"
+                    onClick={() => setModalImage(project.image || null)}
                   />
-                ) : (
-                  project.image && (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="rounded-lg w-full h-60 object-contain mb-4 bg-black"
-                    />
-                  )
-                )}
-                <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">
-                  Click to enlarge
+                )
+              )}
+              <span className="absolute bottom-2 right-2 text-xs text-[#CBD5E1] bg-[#18192A]/80 px-2 py-1 rounded-md border border-[#7C3AED]">
+                Click to enlarge
+              </span>
+            </div>
+
+            <h3 className="text-xl font-semibold text-purple-400 mb-2">{project.title}</h3>
+            <p className="text-sm text-white mb-1 whitespace-pre-line break-words">
+              {getDescription(project.description, index)}
+              {getToggle(project.description, index)}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.technologies.map((tech, i) => (
+                <span
+                  key={i}
+                  className="bg-purple-800/30 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-700"
+                >
+                  {tech}
                 </span>
-              </div>
+              ))}
+            </div>
 
-              <h3 className="text-xl font-semibold text-purple-400 mb-2">{project.title}</h3>
-              <p className="text-sm text-white mb-2 whitespace-pre-line break-words">
-                {previewText}
-                {project.description.length > 250 && (
-                  <button
-                    onClick={() => setExpandedCard(isExpanded ? null : index)}
-                    className="ml-1 text-purple-400 hover:text-purple-300 underline text-xs"
-                  >
-                    {isExpanded ? 'Show Less' : 'Read More'}
-                  </button>
-                )}
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="bg-purple-800/30 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-700"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex gap-4 mt-auto">
-                {project.github && (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm flex items-center gap-1">
-                    <FaGithub /> Code
-                  </a>
-                )}
-                {project.live && (
-                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:underline text-sm flex items-center gap-1">
-                    <FaExternalLinkAlt /> Live Demo
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          );
-        })}
+            <div className="flex gap-4">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:underline text-sm flex items-center gap-1"
+                >
+                  <FaGithub /> Code
+                </a>
+              )}
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-400 hover:underline text-sm flex items-center gap-1"
+                >
+                  <FaExternalLinkAlt /> Live Demo
+                </a>
+              )}
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {modalImage && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm px-4" onClick={() => setModalImage(null)}>
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={() => setModalImage(null)}
+        >
           <div className="relative flex items-center justify-center mb-4">
-            <button onClick={(e) => { e.stopPropagation(); setModalIndex((modalIndex - 1 + gauerImages.length) % gauerImages.length); setModalImage(gauerImages[(modalIndex - 1 + gauerImages.length) % gauerImages.length]); }} className="p-2 text-white">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setModalIndex((modalIndex - 1 + gauerImages.length) % gauerImages.length);
+                setModalImage(gauerImages[(modalIndex - 1 + gauerImages.length) % gauerImages.length]);
+              }}
+              className="p-2 text-white"
+            >
               <FaChevronLeft size={32} />
             </button>
-            <img src={modalImage} alt="Project Preview" className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED] mx-4" />
-            <button onClick={(e) => { e.stopPropagation(); setModalIndex((modalIndex + 1) % gauerImages.length); setModalImage(gauerImages[(modalIndex + 1) % gauerImages.length]); }} className="p-2 text-white">
+            <img
+              src={modalImage}
+              alt="Project Preview"
+              className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED] mx-4"
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setModalIndex((modalIndex + 1) % gauerImages.length);
+                setModalImage(gauerImages[(modalIndex + 1) % gauerImages.length]);
+              }}
+              className="p-2 text-white"
+            >
               <FaChevronRight size={32} />
             </button>
           </div>
           <div className="bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center max-w-2xl border border-[#4F46E5]">
-            {gauerDescriptions[modalIndex] || ''}
+            {projects[2].images && projects[2].images.length > 0 && projects[2].images[modalIndex] ? `Image ${modalIndex + 1} of ${projects[2].images.length}` : ''}
           </div>
         </div>
       )}
@@ -206,6 +242,10 @@ const Projects = () => {
 };
 
 export default Projects;
+
+
+
+
 
 
 
