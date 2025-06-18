@@ -157,7 +157,7 @@ const skillCategories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-24 mb-56 scroll-mt-[8vh]">
+    <section id="skills" className="py-32 mb-56 scroll-mt-[8vh]">
       <div className="container mx-auto px-4 sm:px-8 xl:px-24 max-w-7xl">
         <h2 className="text-4xl font-bold text-white mb-12 text-center">
           <span className="block relative w-fit mx-auto">

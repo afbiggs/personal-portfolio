@@ -109,7 +109,7 @@ const Projects = () => {
   }, [isPaused]);
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto scroll-mt-[10vh]" id="projects">
+    <section className="pb-32 pt-24 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto scroll-mt-[10vh]" id="projects">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
