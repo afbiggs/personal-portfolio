@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// Define project type for type safety
+// Define project type
 type Project = {
   title: string;
   description: string;
@@ -20,7 +20,7 @@ const projects: Project[] = [
     image: "/images/tennis-ball-machine.gif",
     technologies: ["C++", "Arduino", "Electronics", "Mechanical Design", "Embedded Systems Development"],
     github: "https://github.com/afbiggs/Tennis-Ball-Machine",
-    live: null
+    live: null,
   },
   {
     title: "Gauer Metal Machine Retrofit",
@@ -33,16 +33,12 @@ const projects: Project[] = [
       "/images/gauer-machine.jpeg"
     ],
     technologies: ["React", "Node.js", "C++", "ESP32", "Raspberry Pi", "UI/UX Design", "WebSockets", "Serial Communication", "Tailscale VPN", "Linux", "System Administration", "Electrical Engineering", "Embedded Systems Development"],
-    github: undefined,
-    live: undefined
   },
   {
-    title: "Raspberry Pi Home Lab, VPN Server, & NAS",
+    title: "Raspberry Pi Home Lab & VPN Server",
     description: "Designed and deployed a self-hosted Raspberry Pi home server for secure remote access, DNS-level ad blocking, private networking, and NAS functionality. Configured WireGuard VPN with full-tunnel routing, integrated Pi-hole for DNS filtering, and set up DuckDNS for dynamic DNS. Secured the system using SSH key authentication and enabled headless NVMe booting. Implemented network-attached storage (NAS) features using Samba and external SSDs. This solution enables me to remotely manage devices on my home network, access self-hosted services, store files, and maintain control over my digital environment—perfect for demonstrating infrastructure knowledge and practical Linux skills.",
     image: "/images/raspberry-pi-lab.jpg",
-    technologies: ["Linux", "Raspberry Pi", "WireGuard VPN", "Pi-hole", "DuckDNS", "Networking", "System Administration", "Security", "NVMe", "SSH", "Headless Boot"],
-    github: undefined,
-    live: null
+    technologies: ["Linux", "Raspberry Pi", "WireGuard VPN", "Pi-hole", "DuckDNS", "Networking", "System Administration", "Security", "NVMe", "SSH", "Headless Boot", "NAS", "Samba", "External Storage"],
   },
   {
     title: "Readme Generator",
@@ -50,19 +46,25 @@ const projects: Project[] = [
     image: "/images/coming-soon-neon-lights.jpg",
     technologies: ["JavaScript", "Node.js", "Inquirer.js", "File System"],
     github: "https://github.com/afbiggs/Readme-Generator",
-    live: null
   },
   {
     title: "Tattoo Artist Portfolio & Booking (Coming Soon)",
     description: "A custom website for a professional tattoo artist, featuring a modern portfolio gallery, integrated scheduling/booking system, and client management tools...",
     image: "/images/coming-soon-neon-lights.jpg",
     technologies: ["React", "Node.js", "Booking System", "Responsive Design", "Cloud Database"],
-    github: undefined,
-    live: undefined
   }
 ];
 
-const useTruncatedDescriptions = (maxLength = 250) => {
+// Image captions for Gauer project
+const gauerDescriptions = [
+  'Initial testing of the control system and UI.',
+  'Here is the main UI for the Gauer Machine.',
+  'Shown here are the internal electronics.',
+  'This is the rear of the custom control box.',
+  'Front view of the Gauer Machine.'
+];
+
+const useTruncatedDescriptions = (projects: Project[], maxLength = 250) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const getDescription = (desc: string, index: number) => {
@@ -90,22 +92,24 @@ const useTruncatedDescriptions = (maxLength = 250) => {
 const Projects = () => {
   const [modalImage, setModalImage] = useState<string | null>(null);
   const [modalIndex, setModalIndex] = useState<number>(0);
+  const [modalImages, setModalImages] = useState<string[]>([]);
+  const [modalDescriptions, setModalDescriptions] = useState<string[] | null>(null);
   const [slideshowIndex, setSlideshowIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
-  const gauerImages = projects[1].images || [];
-  const { getDescription, getToggle } = useTruncatedDescriptions();
+  const { getDescription, getToggle } = useTruncatedDescriptions(projects);
 
   useEffect(() => {
-    if (isPaused) return;
+    const gauerImages = projects.find(p => p.title === "Gauer Metal Machine Retrofit")?.images || [];
+    if (isPaused || gauerImages.length === 0) return;
     const interval = setInterval(() => {
-      setSlideshowIndex((prev) => (prev + 1) % gauerImages.length);
+      setSlideshowIndex(prev => (prev + 1) % gauerImages.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [isPaused, gauerImages.length]);
+  }, [isPaused]);
 
   return (
-    <section id="projects" className="py-12 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto scroll-mt-[10vh]">
+    <section className="py-12 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto scroll-mt-[10vh]" id="projects">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -134,10 +138,15 @@ const Projects = () => {
                 <img
                   src={project.images[slideshowIndex]}
                   alt={project.title}
+                  loading="lazy"
                   className="rounded-lg w-full h-60 object-contain mb-4 cursor-pointer bg-black"
                   onClick={() => {
-                    setModalImage(project.images![slideshowIndex]);
+                    setModalImages(project.images!);
+                    setModalDescriptions(
+                      project.title === "Gauer Metal Machine Retrofit" ? gauerDescriptions : null
+                    );
                     setModalIndex(slideshowIndex);
+                    setModalImage(project.images![slideshowIndex]);
                   }}
                   onMouseEnter={() => setIsPaused(true)}
                   onMouseLeave={() => setIsPaused(false)}
@@ -147,8 +156,18 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="rounded-lg w-full h-60 object-contain mb-4 cursor-pointer bg-black"
-                    onClick={() => setModalImage(project.image || null)}
+                    onClick={() => {
+                      setModalImages([project.image!]);
+                      setModalDescriptions(
+                        project.title === "Tennis Ball Machine"
+                          ? ["Watch the Tennis Ball Machine in action."]
+                          : null
+                      );
+                      setModalIndex(0);
+                      setModalImage(project.image!);
+                    }}
                   />
                 )
               )}
@@ -158,7 +177,7 @@ const Projects = () => {
             </div>
 
             <h3 className="text-xl font-semibold text-purple-400 mb-2">{project.title}</h3>
-            <p className="text-sm text-white mb-1 whitespace-pre-line break-words">
+            <p className="text-sm text-white mb-4 whitespace-pre-line break-words">
               {getDescription(project.description, index)}
               {getToggle(project.description, index)}
             </p>
@@ -209,8 +228,9 @@ const Projects = () => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setModalIndex((modalIndex - 1 + gauerImages.length) % gauerImages.length);
-                setModalImage(gauerImages[(modalIndex - 1 + gauerImages.length) % gauerImages.length]);
+                const newIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
+                setModalIndex(newIndex);
+                setModalImage(modalImages[newIndex]);
               }}
               className="p-2 text-white"
             >
@@ -219,22 +239,27 @@ const Projects = () => {
             <img
               src={modalImage}
               alt="Project Preview"
+              loading="lazy"
               className="max-h-[70vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-[#7C3AED] mx-4"
             />
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setModalIndex((modalIndex + 1) % gauerImages.length);
-                setModalImage(gauerImages[(modalIndex + 1) % gauerImages.length]);
+                const newIndex = (modalIndex + 1) % modalImages.length;
+                setModalIndex(newIndex);
+                setModalImage(modalImages[newIndex]);
               }}
               className="p-2 text-white"
             >
               <FaChevronRight size={32} />
             </button>
           </div>
-          <div className="bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center max-w-2xl border border-[#4F46E5]">
-            {projects[2].images && projects[2].images.length > 0 && projects[2].images[modalIndex] ? `Image ${modalIndex + 1} of ${projects[2].images.length}` : ''}
-          </div>
+
+          {modalDescriptions && (
+            <div className="bg-[#18192A]/90 text-[#CBD5E1] rounded-lg p-4 text-center max-w-2xl border border-[#4F46E5]">
+              {modalDescriptions[modalIndex]}
+            </div>
+          )}
         </div>
       )}
     </section>
@@ -242,10 +267,6 @@ const Projects = () => {
 };
 
 export default Projects;
-
-
-
-
 
 
 
