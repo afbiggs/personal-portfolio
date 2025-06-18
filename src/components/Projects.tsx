@@ -64,7 +64,7 @@ const gauerDescriptions = [
   'Front view of the Gauer Machine.'
 ];
 
-const useTruncatedDescriptions = (projects: Project[], maxLength = 250) => {
+const useTruncatedDescriptions = (maxLength = 250) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const getDescription = (desc: string, index: number) => {
@@ -97,7 +97,7 @@ const Projects = () => {
   const [slideshowIndex, setSlideshowIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
-  const { getDescription, getToggle } = useTruncatedDescriptions(projects);
+  const { getDescription, getToggle } = useTruncatedDescriptions();
 
   useEffect(() => {
     const gauerImages = projects.find(p => p.title === "Gauer Metal Machine Retrofit")?.images || [];
