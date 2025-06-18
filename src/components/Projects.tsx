@@ -37,7 +37,7 @@ const projects: Project[] = [
   {
     title: "Raspberry Pi Home Lab & VPN Server",
     description: "Designed and deployed a self-hosted Raspberry Pi home server for secure remote access, DNS-level ad blocking, private networking, and NAS functionality. Configured WireGuard VPN with full-tunnel routing, integrated Pi-hole for DNS filtering, and set up DuckDNS for dynamic DNS. Secured the system using SSH key authentication and enabled headless NVMe booting. Implemented network-attached storage (NAS) features using Samba and external SSDs. This solution enables me to remotely manage devices on my home network, access self-hosted services, store files, and maintain control over my digital environment—perfect for demonstrating infrastructure knowledge and practical Linux skills.",
-    image: "/images/raspberry-pi-lab.jpg",
+    image: "/images/pi-homeserver-diagram-concept.png",
     technologies: ["Linux", "Raspberry Pi", "WireGuard VPN", "Pi-hole", "DuckDNS", "Networking", "System Administration", "Security", "NVMe", "SSH", "Headless Boot", "NAS", "Samba", "External Storage"],
   },
   {
