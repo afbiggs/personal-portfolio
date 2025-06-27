@@ -57,11 +57,11 @@ const projects: Project[] = [
 
 // Image captions for Gauer project
 const gauerDescriptions = [
-  'Initial testing of the control system and UI.',
-  'Here is the main UI for the Gauer Machine.',
-  'Shown here are the internal electronics.',
-  'This is the rear of the custom control box.',
-  'Front view of the Gauer Machine.'
+  'Initial testing of the control system and UI. The UI & server are hosted locally on a Raspberry Pi and being rendered in a browser window since changes will need to be made. This allows for easy navigation of different system settings within the Linux raspberry pi OS. The server communicates with an ESP32 through serial & WebSockets for the backend control logic. ',
+    'Here is the main UI for the Gauer Machine which will auto load on boot through a systemd service script. The UI runs full time in kiosk mode. I set up SSH to allow for remote access to the machine through a secure VPN so changes and updates can be made remotely if needed. ',
+    'Shown here are the internal electronics of the control box. The Raspberry Pi, which is absent from this photo, sits in the top left corner and the ESP32 sits directly below it and connects to relays and eventually to the corresponding components on the Gauer itself. All of the electronics and comms are electrically & optically isolated to reduce noise and interference.',
+    'This is is the rear of the custom control box which sits on a custom stand. Whips are connected from the control box to the Gauer itself.',
+    'Front view of the Gauer Machine which was originally built in the late 60s. On the far left material is shown being fed through the machine. The cream colored box in the was the original control box which is where we tapped into the existing wiring to connect the new control system.',
 ];
 
 const useTruncatedDescriptions = (maxLength = 250) => {
@@ -162,7 +162,7 @@ const Projects = () => {
                       setModalImages([project.image!]);
                       setModalDescriptions(
                         project.title === "Tennis Ball Machine"
-                          ? ["Watch the Tennis Ball Machine in action."]
+                          ? ["Watch the Tennis Ball Machine in action! This shows the initial testing of the ball machine. More work has been completed since this video was taken. However, this initial test was a huge success in proving the core mechanical and electrical design was working as expected."]
                           : null
                       );
                       setModalIndex(0);

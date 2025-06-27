@@ -7,10 +7,15 @@ import { useTypewriter, Cursor } from 'react-simple-typewriter'
 const Hero = () => {
   // Auto-typing subtitle effect
   const titles = [
-    "Full Stack Developer",
-    "Web Developer",
-    "UI/UX Designer",
-    "Problem Solver"
+    "Full-Stack Developer",
+    "Creative Systems Engineer",
+    "UI Developer for Embedded Systems",
+    "Linux & Networking Enthusiast",
+    "Raspberry Pi Home Lab Architect",
+    "Automation & Control Systems Developer",
+    "Remote-Friendly Tinkerer",
+    "Real-World Problem Solver",
+    "Code + Hardware = ❤️"
   ];
   const [typedTitle] = useTypewriter({
     words: titles,
