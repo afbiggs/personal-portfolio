@@ -54,7 +54,7 @@ const Hero = () => {
             <Cursor cursorColor="#7C3AED" />
           </h1>
 
-          <div className="mb-6 h-[5rem] sm:h-[5.5rem] md:h-[6rem] flex items-center justify-start">
+          <div className="mb-6 h-[5rem] sm:h-[5.5rem] md:h-[6rem] flex items-start justify-start">
   <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono text-[#7C3AED] leading-snug text-left w-full">
     {typedTitle}
     <Cursor cursorColor="#7C3AED" />
