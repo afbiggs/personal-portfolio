@@ -34,8 +34,8 @@ const Contact = () => {
   // }
 
   return (
-    <section id="contact" className="py-20 scroll-mt-[-8vh]">
-      <div className="mt-32 sm:mt-42 pt-16 pb-32 px-4 sm:px-8 max-w-6xl mx-auto">
+    <section id="contact" className="min-h-screen flex items-center justify-center py-16 sm:py-20 md:py-24 scroll-mt-[0vh]">
+      <div className="container mx-auto px-4 sm:px-8 xl:px-24 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

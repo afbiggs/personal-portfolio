@@ -109,21 +109,22 @@ const Projects = () => {
   }, [isPaused]);
 
   return (
-    <section className="pb-32 pt-24 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto scroll-mt-[10vh]" id="projects">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="text-4xl font-bold text-white mb-12 text-center"
-      >
-        <span className="block relative w-fit mx-auto">
-          Featured Projects
-          <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
-        </span>
-      </motion.h2>
+    <section className="min-h-screen flex justify-center py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto scroll-mt-[10vh]" id="projects">
+      <div className="flex flex-col items-center w-full">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-4xl font-bold text-white mb-12 text-center"
+        >
+          <span className="block relative w-fit mx-auto">
+            Featured Projects
+            <span className="block absolute left-0 right-0 -bottom-2 h-1 w-full rounded-full bg-[#7C8CF8]"></span>
+          </span>
+        </motion.h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
         {projects.map((project, index) => (
           <motion.div
             key={index}
@@ -217,6 +218,7 @@ const Projects = () => {
             </div>
           </motion.div>
         ))}
+      </div>
       </div>
 
       {modalImage && (
