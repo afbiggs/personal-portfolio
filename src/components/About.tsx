@@ -83,7 +83,7 @@ const About = () => {
       content: `Everything I’ve built — from embedded control systems to home-grown networking infrastructure — comes from a place of curiosity 
       and a desire to understand how things work at every level. I’ve worked across the stack, down to the hardware, and up through 
       the network. Whether I’m designing a control system, building a website, spinning up a containerized service, building a custom VPN, 
-      or acting on the insane idea to build my own tennis ball machine — I care about doing it right, doing it clean, and learning something 
+      or acting on the insane idea to make my own tennis ball machine — I care about doing it right, doing it clean, and learning something 
       new along the way. That’s what keeps me going.`,
       next: null,
       accent: "#EC4899"
