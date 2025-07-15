@@ -136,7 +136,7 @@ const skillCategories = [
   {
     label: 'Embedded & Hardware',
     color: 'text-pink-400 border-pink-500',
-    items: ['Arduino', 'Raspberry Pi', 'STM32', 'GPIO', 'UART', 'I2C'],
+    items: ['Arduino', 'Raspberry Pi', 'STM32', 'ESP32', 'Zephyr RTOS', 'Real-time Linux', 'GPIO', 'UART', 'I2C'],
   },
   {
     label: 'Tools & DevOps',
@@ -144,14 +144,14 @@ const skillCategories = [
     items: ['Git', 'Docker', 'Linux', 'Nginx', 'VS Code', 'Vim'],
   },
   {
-    label: 'Security & Networking',
+    label: 'Networking & Security',
     color: 'text-indigo-400 border-indigo-500',
-    items: ['Wireshark', 'Nmap', 'Metasploit', 'OpenWRT', 'SSH'],
+    items: ['Wireshark', 'OpenWRT', 'SSH', 'WireGuard', 'pfSense', 'DNSMasq', 'Proxmox', 'Nmap', 'Metasploit'],
   },
   {
     label: 'Other Experience',
     color: 'text-pink-400 border-pink-500',
-    items: ['Linux system setup', 'custom UIs', 'CNC machine control', 'full-stack development'],
+    items: ['Linux system setup', 'custom UIs', 'CNC machine control', 'full-stack development', '3D printing', 'Fusion 360/CAD'],
   },
 ];
 
