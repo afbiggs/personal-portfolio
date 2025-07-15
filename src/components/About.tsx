@@ -51,18 +51,20 @@ const About = () => {
       content: `Beyond formal training, I've pursued self-taught projects in electronics, embedded systems, and C++ programming. 
       I've worked with a variety of microcontrollers and single-board computers, gaining a strong understanding of how software 
       interacts with hardware. This complements my professional work and enhances my ability to build efficient, real-world systems.`,
-      next: "security",
+      next: "networking",
       accent: "#EC4899"
     },
     {
-      id: "security",
-      title: "Cybersecurity",
-      content: `Driven by curiosity and a desire to understand systems deeply, I've explored cybersecurity through developing 
-      ethical hacking tools and network testing devices. I continue to study security protocols and best practices, approaching 
-      projects with a security-first mindset.`,
+      id: "networking",
+      title: "Networking & Infrastructure",
+      content: `My work in infrastructure and networking spans from configuring secure remote access systems to building out complete 
+      home lab environments and production-ready server setups. I've deployed full-tunnel VPNs, implemented custom DNS filtering 
+      services, and managed Linux-based systems that support both internal tooling and customer-facing applications. Whether it's 
+      configuring network topologies, hardening remote endpoints, or containerizing services with Docker, I approach each project 
+      with scalability, reliability, and security in mind.`,
       next: "current",
       accent: "#4F46E5"
-    },
+    },    
     {
       id: "current",
       title: "Current Role",
@@ -78,9 +80,11 @@ const About = () => {
     {
       id: "summary",
       title: "Bringing It All Together",
-      content: `What sets me apart is a rare blend of business insight, full-stack development skills, embedded systems experience, 
-      and a passion for cybersecurity. I'm adaptable, self-motivated, and open to roles that allow me to continue learning while 
-      solving meaningful problems — whether in software, hardware, or both.`,
+      content: `Everything I’ve built — from embedded control systems to home-grown networking infrastructure — comes from a place of curiosity 
+      and a desire to understand how things work at every level. I’ve worked across the stack, down to the hardware, and up through 
+      the network. Whether I’m designing a control system, building a website, spinning up a containerized service, building a custom VPN, 
+      or acting on the insane idea to build my own tennis ball machine — I care about doing it right, doing it clean, and learning something 
+      new along the way. That’s what keeps me going.`,
       next: null,
       accent: "#EC4899"
     }
