@@ -5,13 +5,14 @@ import { useTypewriter, Cursor } from 'react-simple-typewriter'
 const Hero = () => {
   const titles = [
     "Full-Stack Developer",
-    "Creative Systems Engineer",
-    "UI Developer for Embedded Systems",
+    "Creative Embedded Systems Engineer",
+    "Embedded UI Developer",
     "Linux & Networking Enthusiast",
-    "Raspberry Pi Home Lab Architect",
+    "Microcontrollers & SBCs Are My Playground",
     "Automation & Control Systems Developer",
     "Remote-Friendly Tinkerer",
-    "Real-World Problem Solver",
+    "One Project Away From Overengineering Everything",
+    "Embedded Dev with a Multimeter",
     "Code + Hardware = ❤️"
   ];
 
@@ -61,11 +62,10 @@ const Hero = () => {
   </h2>
 </div>
 
-
-          <p className="text-[#CBD5E1] text-base sm:text-lg lg:text-xl leading-relaxed mb-8">
-            Specializing in web development and embedded systems. <br />
-            Building solutions that solve real problems.
-          </p>
+<p className="text-[#CBD5E1] text-base sm:text-lg lg:text-xl leading-relaxed mb-8">
+  Specializing in web development, embedded systems, and solving problems I probably created in the first place.
+  I build stuff that works, sometimes even on the first try.
+</p>
 
           <div className="flex flex-wrap gap-6 mb-8">
             <a
