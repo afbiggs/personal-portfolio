@@ -43,9 +43,8 @@ const Contact = () => {
           </h2>
 
           {/* Description under title */}
-          <p className="text-md sm:text-lg text-[#CBD5E1] text-center max-w-2xl mx-auto mb-12 leading-relaxed">
-            Thanks for stopping by! I'm always open to meeting other builders, collaborators, and creators —
-            feel free to reach out if something I’ve built resonates with you.
+          <p className="text-md sm:text-lg text-[#CBD5E1] text-center max-w-2xl mx-auto mb-12 mt-10 leading-relaxed">
+          Thanks for stopping by! I'm always open to connecting or collaborating with fellow builders and creators, or joining a team that shares my passion — feel free to reach out if something I’ve built resonates with you.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
