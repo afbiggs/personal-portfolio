@@ -1,6 +1,7 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import profileImage from '../assets/images/profile-image.jpeg'
 import { useTypewriter, Cursor } from 'react-simple-typewriter'
+import { HiOutlineDocumentArrowDown } from 'react-icons/hi2';
 
 const Hero = () => {
   const titles = [
@@ -104,10 +105,11 @@ const Hero = () => {
   <a
     href="/Alexander Biggs Resume.pdf"
     target="_blank"
-    rel="noopener noreferrer"
-    className="text-sm sm:text-base font-semibold text-[#CBD5E1] border border-[#4F46E5] rounded-md px-4 py-2 hover:bg-[#4F46E5] hover:text-white transition-colors"
-  >
-    View Résumé
+  rel="noopener noreferrer"
+  className="flex items-center gap-2 text-sm sm:text-base font-semibold text-[#CBD5E1] border border-[#4F46E5] rounded-md px-4 py-2 hover:bg-[#4F46E5] hover:text-white transition-colors"
+>
+  <HiOutlineDocumentArrowDown className="text-lg" />
+  View Résumé
   </a>
 </div>
         </div>
