@@ -82,22 +82,34 @@ const Hero = () => {
             </a>
           </div>
 
-          <div className="flex gap-8">
-            {[
-              { icon: FaGithub, href: "https://github.com/afbiggs" },
-              { icon: FaLinkedin, href: "https://linkedin.com/in/alex-biggs-2a8a0194" },
-            ].map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#CBD5E1] hover:text-[#4F46E5] transition-colors text-3xl"
-              >
-                <social.icon />
-              </a>
-            ))}
-          </div>
+          <div className="flex flex-wrap items-center gap-6">
+  <div className="flex gap-6">
+    {/* Social icons */}
+    {[
+      { icon: FaGithub, href: "https://github.com/afbiggs" },
+      { icon: FaLinkedin, href: "https://linkedin.com/in/alex-biggs-2a8a0194" },
+    ].map((social, index) => (
+      <a
+        key={index}
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#CBD5E1] hover:text-[#4F46E5] transition-colors text-3xl"
+      >
+        <social.icon />
+      </a>
+    ))}
+  </div>
+
+  <a
+    href="/Alexander Biggs Resume.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-sm sm:text-base font-semibold text-[#CBD5E1] border border-[#4F46E5] rounded-md px-4 py-2 hover:bg-[#4F46E5] hover:text-white transition-colors"
+  >
+    View Résumé
+  </a>
+</div>
         </div>
 
         {/* Right: Profile Image */}
