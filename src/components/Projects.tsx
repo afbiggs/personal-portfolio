@@ -35,11 +35,19 @@ const projects: Project[] = [
     technologies: ["React", "Node.js", "C++", "ESP32", "Raspberry Pi", "UI/UX Design", "WebSockets", "Serial Communication", "Tailscale VPN", "Linux", "System Administration", "Electrical Engineering", "Embedded Systems Development"],
   },
   {
-    title: "Raspberry Pi Home Lab & VPN Server",
-    description: "Designed and deployed a self-hosted Raspberry Pi home server for secure remote access, DNS-level ad blocking, private networking, and NAS functionality. Configured WireGuard VPN with full-tunnel routing, integrated Pi-hole for DNS filtering, and set up DuckDNS for dynamic DNS. Secured the system using SSH key authentication and enabled headless NVMe booting. Implemented network-attached storage (NAS) features using Samba and external SSDs. This solution enables me to remotely manage devices on my home network, access self-hosted services, store files, and maintain control over my digital environment—perfect for demonstrating infrastructure knowledge and practical Linux skills.",
-    image: "/images/pi-homeserver-diagram-concept.png",
-    technologies: ["Linux", "Raspberry Pi", "WireGuard VPN", "Pi-hole", "DuckDNS", "Networking", "System Administration", "Security", "NVMe", "SSH", "Headless Boot", "NAS", "Samba", "External Storage"],
+    title: "Self-Hosted Homelab Server with Proxmox, Docker, TrueNAS & Pi VPN Gateway",
+    description: `Built a self-hosted homelab environment designed for real-world use, remote access, and service isolation. The system is powered by a Proxmox VE hypervisor on a dedicated PC with 128GB RAM and a 2TB NVMe SSD, running multiple virtual machines and Docker containers for services like TrueNAS Core (ZFS-based NAS), Plex media server, and more.
+  
+  Used a Raspberry Pi 5 as a remote-access gateway, running Pi-hole for DNS-level ad blocking and WireGuard VPN for secure full-tunnel access. Set up dynamic DNS with DuckDNS and configured SSH key-based access for remote management. Networking and storage are segmented for security and performance. The system is fully documented and modular, allowing rapid expansion or service redeployment.`,
+    image: "/images/homelab-network-diagram.png",
+    technologies: [
+      "Proxmox VE", "TrueNAS Scale", "Docker", "Virtual Machines", "Linux", "WireGuard VPN",
+      "Pi-hole", "Raspberry Pi", "ZFS", "Networking",
+      "System Administration", "SSH", "Dynamic DNS"
+    ],
+    live: null
   },
+  
   {
     title: "Readme Generator",
     description: "A professional ReadME generator that allows users to answer prompted questions and receive an auto-generated ReadME file...",
