@@ -102,3 +102,34 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+@media (max-width: 768px) {
+  /* Make headings more mobile-friendly */
+  h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+  }
+
+  h2, h3 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+
+  /* Ensure buttons don’t overflow or look oversized */
+  button {
+    padding: 0.5em 1em;
+    font-size: 0.95em;
+  }
+
+  /* Container tweaks if used globally */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Optional: smaller root font for tighter mobile layout */
+  html {
+    font-size: 90%;
+  }
+}
