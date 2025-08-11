@@ -136,7 +136,7 @@ const About = () => {
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0"
               >
-                <div className={`bg-[#1E1B4B]/80 backdrop-blur-sm p-8 rounded-lg border-2 h-full flex flex-col justify-between ${
+                <div className={`bg-[#1E1B4B]/80 backdrop-blur-sm p-6 sm:p-8 rounded-lg border-2 h-full flex flex-col justify-between text-center sm:text-left ${
                   isGlitching ? styles.animateGlitch : ''
                 }`} style={{
                   borderColor: currentSection.accent,

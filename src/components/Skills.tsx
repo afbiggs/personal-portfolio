@@ -157,7 +157,7 @@ const skillCategories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="min-h-screen flex items-center justify-center py-16 sm:py-20 md:py-24 scroll-mt-[0vh]">
+    <section id="skills" className="min-h-screen flex items-center justify-center py-16 sm:py-20 md:py-24 px-4 scroll-mt-[0vh]">
       <div className="container mx-auto px-4 sm:px-8 xl:px-24 max-w-7xl">
         <h2 className="text-4xl font-bold text-white mb-12 text-center">
           <span className="block relative w-fit mx-auto">
@@ -173,7 +173,7 @@ const Skills = () => {
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <h3 className={`text-lg font-semibold mb-4 ${cat.color} border-b border-[#4F46E5] pb-2`}>{cat.label}</h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                 {cat.items.map((item, j) => (
                   <span
                     key={item}

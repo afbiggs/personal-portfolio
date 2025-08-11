@@ -132,7 +132,7 @@ const Projects = () => {
           </span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full justify-items-center">
         {projects.map((project, index) => (
           <motion.div
             key={index}
@@ -234,7 +234,7 @@ const Projects = () => {
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm px-4"
           onClick={() => setModalImage(null)}
         >
-          <div className="relative flex items-center justify-center mb-4">
+          <div className="relative flex items-center justify-center mb-4 w-full">
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -242,7 +242,7 @@ const Projects = () => {
                 setModalIndex(newIndex);
                 setModalImage(modalImages[newIndex]);
               }}
-              className="p-2 text-white"
+              className="p-2 text-white absolute left-4 sm:static"
             >
               <FaChevronLeft size={32} />
             </button>
@@ -259,7 +259,7 @@ const Projects = () => {
                 setModalIndex(newIndex);
                 setModalImage(modalImages[newIndex]);
               }}
-              className="p-2 text-white"
+              className="p-2 text-white absolute right-4 sm:static"
             >
               <FaChevronRight size={32} />
             </button>

@@ -36,7 +36,7 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-transparent px-2 sm:px-6 md:px-12">
       <div
-        className="relative w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto rounded-2xl bg-[#18192A]/80 border-2 border-[#7C3AED] shadow-2xl backdrop-blur-lg px-4 sm:px-10 lg:px-16 py-8 sm:py-12 lg:py-16 flex flex-col md:flex-row items-center md:items-start gap-8"
+        className="relative w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto rounded-2xl bg-[#18192A]/80 border-2 border-[#7C3AED] shadow-2xl backdrop-blur-lg px-4 sm:px-10 lg:px-16 py-8 sm:py-12 lg:py-16 flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left"
         style={{ boxShadow: '0 0 40px 0 #7C3AED55, 0 0 0 2px #4F46E5' }}
       >
         {/* Faux window controls */}
@@ -68,7 +68,7 @@ const Hero = () => {
   I build stuff that works, sometimes even on the first try.
 </p>
 
-          <div className="flex flex-wrap gap-6 mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-8 w-full sm:w-auto items-center sm:items-start">
             <a
               href="#contact"
               className="group relative px-8 py-4 bg-[#4F46E5] text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform"
@@ -83,7 +83,7 @@ const Hero = () => {
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
   <div className="flex gap-6">
     {/* Social icons */}
     {[

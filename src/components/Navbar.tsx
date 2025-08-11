@@ -109,12 +109,12 @@ const Navbar = () => {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="py-4 space-y-4">
+              <div className="py-6 px-4 space-y-4">
                 {navItems.map((item) => (
                   <motion.a
                     key={item.name}
                     href={item.href}
-                    className="block text-[#CBD5E1] hover:text-white transition-colors relative"
+                    className="block text-[#CBD5E1] hover:text-white transition-colors relative text-lg"
                     onClick={() => setIsOpen(false)}
                     whileHover={{ x: 10 }}
                     whileTap={{ scale: 0.95 }}
